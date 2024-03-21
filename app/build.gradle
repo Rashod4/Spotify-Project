@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace 'com.example.spotify_project'
+    namespace 'com.example.My_Spotify_Wrapped'
     compileSdk 34
 
     defaultConfig {
