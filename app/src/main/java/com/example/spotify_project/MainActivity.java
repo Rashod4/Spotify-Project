@@ -1,4 +1,4 @@
-package com.example.spotify_project;
+package com.example.My_Spotify_Wrapped;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
