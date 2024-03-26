@@ -1,4 +1,4 @@
-package com.example.spotify_project;
+package com.example.spotifysdk;
 
 import org.junit.Test;
 

@@ -3,17 +3,17 @@ plugins {
 }
 
 android {
-    namespace 'com.example.My_Spotify_Wrapped'
+    namespace 'com.example.spotifysdk'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.example.spotifyproject"
+        applicationId "com.example.spotifysdk"
         minSdk 33
         targetSdk 34
         versionCode 1
         versionName "1.0"
 
-        manifestPlaceholders = [redirectSchemeName: "My_Spotify_Wrapped", redirectHostName: "auth"]
+        manifestPlaceholders = [redirectSchemeName: "com.example.spotifysdk", redirectHostName: "auth"]
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
