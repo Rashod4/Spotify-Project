@@ -29,12 +29,7 @@ import okhttp3.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
-    public static final String CLIENT_ID = "b838b340b00049e299cb9e9bb3a6b005";
     public static final String REDIRECT_URI = "com.example.spotifysdk://auth";
-
-    public static final int AUTH_TOKEN_REQUEST_CODE = 0;
-    public static final int AUTH_CODE_REQUEST_CODE = 1;
-
     private final OkHttpClient mOkHttpClient = new OkHttpClient();
     private String mAccessToken, mAccessCode;
     private Call mCall;
