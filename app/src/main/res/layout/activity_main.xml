@@ -43,8 +43,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="8dp"
-            android:backgroundTint="#2C8911"
-            android:text="Request Token" />
+            android:background="@drawable/button_rectangle"
+            android:text="Request Token"
+            android:textColor="@color/white" />
 
         <TextView
             android:id="@+id/code_text_view"
@@ -60,7 +61,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="8dp"
-            android:backgroundTint="#2C8911"
+            android:background="@drawable/button_rectangle"
+            android:textColor="@color/white"
             android:text="Request Code" />
 
         <TextView
@@ -81,7 +83,8 @@
                 android:layout_width="345dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:backgroundTint="#2C8911"
+                android:background="@drawable/button_rectangle"
+                android:textColor="@color/white"
                 android:text="Get User Profile" />
         </LinearLayout>
 
