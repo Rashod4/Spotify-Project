@@ -23,57 +23,48 @@
         android:id="@+id/topSong2"
         android:layout_width="193dp"
         android:layout_height="51dp"
-        android:layout_marginStart="211dp"
         android:layout_marginTop="-225dp"
-        android:layout_marginEnd="7dp"
         android:text="TextView"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/topSong1"
+        app:layout_constraintStart_toStartOf="@+id/topSong1"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/topSong3"
         android:layout_width="193dp"
         android:layout_height="51dp"
-        android:layout_marginStart="211dp"
         android:layout_marginTop="30dp"
-        android:layout_marginEnd="7dp"
         android:text="TextView"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/topSong2"
+        app:layout_constraintStart_toStartOf="@+id/topSong2"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/topSong4"
         android:layout_width="193dp"
         android:layout_height="51dp"
-        android:layout_marginStart="211dp"
         android:layout_marginTop="300dp"
-        android:layout_marginEnd="7dp"
         android:text="TextView"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/topSong3"
+        app:layout_constraintStart_toStartOf="@+id/topSong3"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/topSong5"
         android:layout_width="193dp"
         android:layout_height="51dp"
-        android:layout_marginStart="211dp"
-        android:layout_marginTop="550dp"
-        android:layout_marginEnd="7dp"
         android:text="TextView"
         android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/topSong4"
+        app:layout_constraintStart_toStartOf="@+id/topSong4"
+        app:layout_constraintTop_toBottomOf="@+id/topSong4" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
