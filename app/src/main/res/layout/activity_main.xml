@@ -39,7 +39,7 @@
 
         <Button
             android:id="@+id/token_btn"
-            android:layout_width="345dp"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="8dp"
@@ -57,7 +57,7 @@
 
         <Button
             android:id="@+id/code_btn"
-            android:layout_width="345dp"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="8dp"
@@ -80,13 +80,27 @@
 
             <Button
                 android:id="@+id/profile_btn"
-                android:layout_width="345dp"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 android:background="@drawable/button_rectangle"
                 android:textColor="@color/white"
                 android:text="Get User Profile" />
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/login_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="100dp"
+            android:fontFamily="@font/cabin_semibold"
+            android:text="Spotify Wrapped"
+            android:textColor="#1ED760"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </LinearLayout>
