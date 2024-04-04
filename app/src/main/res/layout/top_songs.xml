@@ -1,12 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/topsongsbackground">
+
+    <TextView
+        android:id="@+id/topSong1"
+        android:layout_width="193dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="-500dp"
+        android:layout_marginEnd="-200dp"
+        android:text="TextView"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/topSong2"
+        android:layout_width="193dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="-225dp"
+        android:text="TextView"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/topSong1"
+        app:layout_constraintStart_toStartOf="@+id/topSong1"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/topSong3"
+        android:layout_width="193dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="30dp"
+        android:text="TextView"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/topSong2"
+        app:layout_constraintStart_toStartOf="@+id/topSong2"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/topSong4"
+        android:layout_width="193dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="300dp"
+        android:text="TextView"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/topSong3"
+        app:layout_constraintStart_toStartOf="@+id/topSong3"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/topSong5"
+        android:layout_width="193dp"
+        android:layout_height="51dp"
+        android:text="TextView"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/topSong4"
+        app:layout_constraintStart_toStartOf="@+id/topSong4"
+        app:layout_constraintTop_toBottomOf="@+id/topSong4" />
+
+    <Button
+        android:id="@+id/topSongsNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="14dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="14dp"
+        android:text="Next"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/topSongsBack" />
+
+    <Button
+        android:id="@+id/topSongsBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="209dp"
+        android:layout_marginBottom="14dp"
+        android:text="Back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <TextView
         android:id="@+id/top_songs_text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Top Tracks" />
+  
 </androidx.constraintlayout.widget.ConstraintLayout>
