@@ -22,6 +22,12 @@ public class TopArtistsActivity extends AppCompatActivity {
             // Update UI to display top tracks
             TextView topArtistsTextView = findViewById(R.id.top_artists_text_view);
             topArtistsTextView.setText(TextUtils.join("\n", topArtists));
+
+            for (int i = 0; i < 5; i++) {
+                int textViewId = getResources().getIdentifier("topArtist" + (i + 1), "id", getPackageName());
+                TextView textView = findViewById(textViewId);
+                textView.setText(topArtists.get(i));
+            }
         } else {
             // Handle the case where topArtists is null
             // For example, display a message or log an error
