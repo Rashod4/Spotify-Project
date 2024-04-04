@@ -23,7 +23,7 @@
         android:id="@+id/createEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="216dp"
         android:background="@color/material_dynamic_neutral60"
         android:backgroundTint="@color/material_dynamic_neutral60"
         android:ems="10"
@@ -33,6 +33,43 @@
         android:textColor="#1ED760"
         android:textColorHint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createAccountTitle" />
+
+    <EditText
+        android:id="@+id/firstName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        android:background="@color/material_dynamic_neutral60"
+        android:backgroundTint="@color/material_dynamic_neutral60"
+        android:ems="10"
+        android:hint="First Name"
+        android:inputType="textPersonName"
+        android:textAlignment="center"
+        android:textColor="#1ED760"
+        android:textColorHint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createAccountTitle" />
+
+    <EditText
+        android:id="@+id/lastName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="168dp"
+        android:background="@color/material_dynamic_neutral60"
+        android:backgroundTint="@color/material_dynamic_neutral60"
+        android:ems="10"
+        android:hint="Last Name"
+        android:inputType="textPersonName"
+        android:textAlignment="center"
+        android:textColor="#1ED760"
+        android:textColorHint="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/createAccountTitle" />
 
@@ -40,23 +77,33 @@
         android:id="@+id/createPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:ems="10"
-        android:inputType="textPassword"
         android:background="@color/material_dynamic_neutral60"
         android:backgroundTint="@color/material_dynamic_neutral60"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
         android:textAlignment="center"
         android:textColor="#1ED760"
-        android:hint="Password"
         android:textColorHint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createEmail" />
+        app:layout_constraintTop_toBottomOf="@+id/createEmail"
+        app:layout_constraintVertical_bias="0.084" />
 
-    <TextView
-        android:id="@+id/textView2"
+    <Button
+        android:id="@+id/signUp_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="#1ED760"
-        android:textAlignment="center" />
+        android:backgroundTint="#1ED760"
+        android:text="Sign up"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createPassword"
+        app:layout_constraintVertical_bias="0.103" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
