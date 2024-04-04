@@ -41,11 +41,18 @@ public class LoginActivity extends AppCompatActivity {
         EditText email_text = (EditText) findViewById(R.id.email_login);
         EditText password_text = (EditText) findViewById(R.id.password_login);
         Button login_button = (Button) findViewById(R.id.login_button);
-        LoginDatabase database = new LoginDatabase(this);
-        database.insertUser("liudidi.1251@gmail.com", "password");
+        Button signup_button = (Button) findViewById(R.id.signup_button);
+//        LoginDatabase database = LoginDatabase.getInstance(getApplicationContext());
+//        database.insertUser("Chis", "liu","liudidi.1251@gmail.com", "password");
         login_button.setOnClickListener((v) -> {
             login(email_text.getText().toString(), password_text.getText().toString());
         });
+        signup_button.setOnClickListener((v) -> {
+            Intent intent = new Intent(this, Signup.class);
+            startActivity(intent);
+            finish(); // Call this to finish the current activity
+        });
+
     }
 
     public void login(String email, String password) {
@@ -53,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(this, "Login input invalid", Toast.LENGTH_SHORT).show();
             return;
         } else {
-            LoginDatabase database = new LoginDatabase(this);
+            LoginDatabase database = LoginDatabase.getInstance(getApplicationContext());
             if (database.checkUser(email, password)) {
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
