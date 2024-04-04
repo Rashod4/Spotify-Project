@@ -10,18 +10,20 @@
         android:id="@+id/topArtist1"
         android:layout_width="193dp"
         android:layout_height="51dp"
-        android:layout_marginTop="71dp"
+        android:layout_marginStart="202dp"
+        android:layout_marginTop="104dp"
+        android:layout_marginEnd="16dp"
         android:text="TextView"
         android:textSize="34sp"
-        app:layout_constraintEnd_toEndOf="@+id/topArtist5"
-        app:layout_constraintStart_toStartOf="@+id/topArtist5"
-        app:layout_constraintTop_toBottomOf="@+id/topArtist5" />
-
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <TextView
         android:id="@+id/topArtist2"
         android:layout_width="193dp"
         android:layout_height="51dp"
-        android:layout_marginTop="86dp"
+        android:layout_marginTop="71dp"
         android:text="TextView"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="@+id/topArtist1"
@@ -32,7 +34,7 @@
         android:id="@+id/topArtist3"
         android:layout_width="193dp"
         android:layout_height="51dp"
-        android:layout_marginTop="81dp"
+        android:layout_marginTop="86dp"
         android:text="TextView"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="@+id/topArtist2"
@@ -40,14 +42,12 @@
         app:layout_constraintTop_toBottomOf="@+id/topArtist2" />
 
     <TextView
-        android:id="@+id/topArtiat4"
+        android:id="@+id/topArtist4"
         android:layout_width="193dp"
         android:layout_height="51dp"
-        android:layout_marginTop="78dp"
-        android:layout_marginBottom="56dp"
+        android:layout_marginTop="81dp"
         android:text="TextView"
         android:textSize="34sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/topArtist3"
         app:layout_constraintStart_toStartOf="@+id/topArtist3"
         app:layout_constraintTop_toBottomOf="@+id/topArtist3" />
@@ -56,15 +56,15 @@
         android:id="@+id/topArtist5"
         android:layout_width="193dp"
         android:layout_height="51dp"
-        android:layout_marginStart="202dp"
-        android:layout_marginTop="104dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginTop="78dp"
+        android:layout_marginBottom="56dp"
         android:text="TextView"
         android:textSize="34sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/topArtist4"
+        app:layout_constraintStart_toStartOf="@+id/topArtist4"
+        app:layout_constraintTop_toBottomOf="@+id/topArtist4" />
+
 
     <Button
         android:id="@+id/topArtistNext"
@@ -87,7 +87,7 @@
         android:text="Back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-  
+
     <TextView
         android:id="@+id/top_artists_text_view"
         android:layout_width="match_parent"
