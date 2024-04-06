@@ -19,15 +19,15 @@ public class TopTracksActivity extends AppCompatActivity {
         // Get the top tracks data from Intent extras
         ArrayList<String> topTracks = getIntent().getStringArrayListExtra("topTracks");
 
-        // Update UI to display top tracks
-        TextView topTracksTextView = findViewById(R.id.top_songs_text_view);
-        topTracksTextView.setText(TextUtils.join("\n", topTracks));
-
+        // Retrieves each song from the tropTracks arraylist and displays them in top_songs.xml
         for (int i = 0; i < 5; i++) {
             int textViewId = getResources().getIdentifier("topSong" + (i + 1), "id", getPackageName());
             TextView textView = findViewById(textViewId);
             textView.setText(topTracks.get(i));
         }
+
+
+
     }
 }
 

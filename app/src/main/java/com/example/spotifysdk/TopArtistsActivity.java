@@ -20,9 +20,6 @@ public class TopArtistsActivity extends AppCompatActivity {
         // Check if topArtists is null
         if (topArtists != null) {
             // Update UI to display top tracks
-            TextView topArtistsTextView = findViewById(R.id.top_artists_text_view);
-            topArtistsTextView.setText(TextUtils.join("\n", topArtists));
-
             for (int i = 0; i < 5; i++) {
                 int textViewId = getResources().getIdentifier("topArtist" + (i + 1), "id", getPackageName());
                 TextView textView = findViewById(textViewId);
