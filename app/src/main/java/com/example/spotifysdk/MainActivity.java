@@ -168,13 +168,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getTopTracks() {
+        //checks if user has token
         if (mAccessToken == null) {
             Toast.makeText(this, "You need to get an access token first!", Toast.LENGTH_SHORT).show();
             return;
         }
 
+        //making the call to the api
         Request request = new Request.Builder()
-                .url("https://api.spotify.com/v1/me/top/tracks?limit=5")
+                .url("https://api.spotify.com/v1/me/top/tracks?limit=5") //each endpoint will be unique
                 .addHeader("Authorization", "Bearer " + mAccessToken)
                 .build();
 
@@ -193,16 +195,23 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 try {
+                    // Convert the response body to a JSONObject
                     JSONObject jsonObject = new JSONObject(response.body().string());
+                    // Get the "items" array from the JSON response
                     JSONArray items = jsonObject.getJSONArray("items");
+                    // Create an ArrayList to store the track names
                     ArrayList<String> trackNames = new ArrayList<>();
+                    // Loop through each item in the "items" array
                     for (int i = 0; i < items.length(); i++) {
                         JSONObject item = items.getJSONObject(i);
+                        // Get the track name from the current item
                         String trackName = item.getString("name");
                         trackNames.add(trackName);
                     }
-                    //setTextAsync(TextUtils.join("\n", trackNames), topTracksTextView);
+
+                    // Create an Intent to start the TopTracksActivity
                     Intent intent = new Intent(MainActivity.this, TopTracksActivity.class);
+                    // Put the ArrayList of track names as an extra in the Intent
                     intent.putStringArrayListExtra("topTracks", trackNames);
                     startActivity(intent);
                 } catch (JSONException e) {
@@ -214,6 +223,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    //works very similarly to getTopTracks
     public void getTopArtists() {
         if (mAccessToken == null) {
             Toast.makeText(this, "You need to get an access token first!", Toast.LENGTH_SHORT).show();
