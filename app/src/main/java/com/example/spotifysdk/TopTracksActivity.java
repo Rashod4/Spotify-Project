@@ -24,6 +24,7 @@ public class TopTracksActivity extends AppCompatActivity {
         // Get the top tracks data from Intent extras
         ArrayList<String> topTracks = getIntent().getStringArrayListExtra("topTracks");
         ArrayList<String> topArtists = getIntent().getStringArrayListExtra("topArtists");
+        ArrayList<String> topGenres = getIntent().getStringArrayListExtra("topGenres");
 
         // Retrieves each song from the tropTracks arraylist and displays them in top_songs.xml
         for (int i = 0; i < 5; i++) {
@@ -39,6 +40,7 @@ public class TopTracksActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(TopTracksActivity.this, TopArtistsActivity.class);
                 intent.putStringArrayListExtra("topArtists", topArtists);
+                intent.putStringArrayListExtra("topGenres", topGenres);
                 startActivity(intent);
             }
         });

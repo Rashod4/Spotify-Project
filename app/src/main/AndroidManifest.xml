@@ -26,6 +26,7 @@
         <activity android:name=".Signup"/>
         <activity android:name=".TopTracksActivity" />
         <activity android:name=".TopArtistsActivity" />
+        <activity android:name=".TopGenresActivity" />
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
