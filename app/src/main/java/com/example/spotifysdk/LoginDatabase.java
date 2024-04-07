@@ -20,12 +20,15 @@ public class LoginDatabase extends SQLiteOpenHelper {
         }
         return sInstance;
     }
+
+    //this is called the first time a database is created
     @Override
     public void onCreate(SQLiteDatabase db) {
         String createTable = "CREATE TABLE LoginData (id INTEGER PRIMARY KEY AUTOINCREMENT, firstName TEXT, lastName TEXT,email TEXT, password TEXT)";
         db.execSQL(createTable);
     }
 
+    // this is called if the database version number changes
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS LoginData");

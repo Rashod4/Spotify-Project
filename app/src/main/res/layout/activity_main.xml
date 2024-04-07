@@ -84,24 +84,15 @@
             >
 
             <Button
-                android:id="@+id/top_tracks_btn"
+                android:id="@+id/create_wrapped_btn"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/button_rectangle"
-                android:text="Get Top Tracks"
+                android:text="Create Spotify wrapped"
                 android:textColor="@color/white" />
 
-            <Button
-                android:id="@+id/top_artists_btn"
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/button_rectangle"
-                android:text="Get Top Artists"
-                android:textColor="@color/white" />
 
         </LinearLayout>
 

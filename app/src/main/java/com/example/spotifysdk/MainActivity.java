@@ -41,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
     private Call mCall;
 
     private TextView tokenTextView, codeTextView, profileTextView;
+    private ArrayList<String> trackNames = new ArrayList<>();
+    private ArrayList<String> artistsNames = new ArrayList<>();
+    private WrappedDatabase wrappedDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +60,7 @@ public class MainActivity extends AppCompatActivity {
         Button tokenBtn = (Button) findViewById(R.id.token_btn);
         Button codeBtn = (Button) findViewById(R.id.code_btn);
         //Button profileBtn = (Button) findViewById(R.id.profile_btn);
-        Button topTracksBtn = findViewById(R.id.top_tracks_btn);
-        Button topArtistsBtn = findViewById(R.id.top_artists_btn);
+        Button createWrappedBtn = findViewById(R.id.create_wrapped_btn);
 
         // Set the click listeners for the buttons
 
@@ -73,13 +75,11 @@ public class MainActivity extends AppCompatActivity {
 //        profileBtn.setOnClickListener((v) -> {
 //            onGetUserProfileClicked();
 //        });
-        topTracksBtn.setOnClickListener((v) -> {
-            getTopTracks();
+
+        createWrappedBtn.setOnClickListener((v) -> {
+            generateSpotifyWrapped();
         });
 
-        topArtistsBtn.setOnClickListener((v) -> {
-            getTopArtists();
-        });
     }
 
     /**
@@ -125,126 +125,32 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * Get user profile
-     * This method will get the user profile using the token
-     */
-    public void onGetUserProfileClicked() {
+
+    private void generateSpotifyWrapped() {
         if (mAccessToken == null) {
-            Toast.makeText(this, "You need to get an access token first!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please authenticate with Spotify first", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Create a request to get the user profile
-        final Request request = new Request.Builder()
-                .url("https://api.spotify.com/v1/me")
+        // Make a combined request to fetch top tracks and top artists
+        Request topTracksRequest = new Request.Builder()
+                .url("https://api.spotify.com/v1/me/top/tracks?limit=5")
                 .addHeader("Authorization", "Bearer " + mAccessToken)
                 .build();
 
-
-        cancelCall();
-        mCall = mOkHttpClient.newCall(request);
-
-        mCall.enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                Log.d("HTTP", "Failed to fetch data: " + e);
-                Toast.makeText(MainActivity.this, "Failed to fetch data, watch Logcat for more details",
-                        Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                try {
-                    final JSONObject jsonObject = new JSONObject(response.body().string());
-                    setTextAsync(jsonObject.toString(3), profileTextView);
-                } catch (JSONException e) {
-                    Log.d("JSON", "Failed to parse data: " + e);
-                    Toast.makeText(MainActivity.this, "Failed to parse data, watch Logcat for more details",
-                            Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
-
-    public void getTopTracks() {
-        //checks if user has token
-        if (mAccessToken == null) {
-            Toast.makeText(this, "You need to get an access token first!", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        //making the call to the api
-        Request request = new Request.Builder()
-                .url("https://api.spotify.com/v1/me/top/tracks?limit=5") //each endpoint will be unique
-                .addHeader("Authorization", "Bearer " + mAccessToken)
-                .build();
-
-
-        cancelCall();
-        mCall = mOkHttpClient.newCall(request);
-
-        mCall.enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                Log.d("HTTP", "Failed to fetch data: " + e);
-                Toast.makeText(MainActivity.this, "Failed to fetch data, watch Logcat for more details",
-                        Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                try {
-                    // Convert the response body to a JSONObject
-                    JSONObject jsonObject = new JSONObject(response.body().string());
-                    // Get the "items" array from the JSON response
-                    JSONArray items = jsonObject.getJSONArray("items");
-                    // Create an ArrayList to store the track names
-                    ArrayList<String> trackNames = new ArrayList<>();
-                    // Loop through each item in the "items" array
-                    for (int i = 0; i < items.length(); i++) {
-                        JSONObject item = items.getJSONObject(i);
-                        // Get the track name from the current item
-                        String trackName = item.getString("name");
-                        trackNames.add(trackName);
-                    }
-
-                    // Create an Intent to start the TopTracksActivity
-                    Intent intent = new Intent(MainActivity.this, TopTracksActivity.class);
-                    // Put the ArrayList of track names as an extra in the Intent
-                    intent.putStringArrayListExtra("topTracks", trackNames);
-                    startActivity(intent);
-                } catch (JSONException e) {
-                    Log.d("JSON", "Failed to parse data: " + e);
-                    Toast.makeText(MainActivity.this, "Failed to parse data, watch Logcat for more details",
-                            Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
-
-    //works very similarly to getTopTracks
-    public void getTopArtists() {
-        if (mAccessToken == null) {
-            Toast.makeText(this, "You need to get an access token first!", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        Request request = new Request.Builder()
+        Request topArtistsRequest = new Request.Builder()
                 .url("https://api.spotify.com/v1/me/top/artists?limit=5")
                 .addHeader("Authorization", "Bearer " + mAccessToken)
                 .build();
 
-
-        cancelCall();
-        mCall = mOkHttpClient.newCall(request);
+        cancelCall(); // Cancel any existing call
+        mCall = mOkHttpClient.newCall(topTracksRequest);
 
         mCall.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                Log.d("HTTP", "Failed to fetch data: " + e);
-                Toast.makeText(MainActivity.this, "Failed to fetch data, watch Logcat for more details",
-                        Toast.LENGTH_SHORT).show();
+                Log.e("HTTP", "Failed to fetch top tracks: " + e);
+                runOnUiThread(() -> Toast.makeText(MainActivity.this, "Failed to fetch top tracks", Toast.LENGTH_SHORT).show());
             }
 
             @Override
@@ -252,23 +158,72 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     JSONObject jsonObject = new JSONObject(response.body().string());
                     JSONArray items = jsonObject.getJSONArray("items");
-                    ArrayList<String> artistsNames = new ArrayList<>();
+
+                    // Populate trackNames with track names
                     for (int i = 0; i < items.length(); i++) {
                         JSONObject item = items.getJSONObject(i);
                         String trackName = item.getString("name");
-                        artistsNames.add(trackName);
+                        trackNames.add(trackName);
                     }
-                    //setTextAsync(TextUtils.join("\n", trackNames), topTracksTextView);
-                    Intent intent = new Intent(MainActivity.this, TopArtistsActivity.class);
-                    intent.putStringArrayListExtra("topArtists", artistsNames);
-                    startActivity(intent);
+
+                    // After fetching top tracks, proceed to fetch top artists
+                    fetchTopArtists(topArtistsRequest);
+
                 } catch (JSONException e) {
-                    Log.d("JSON", "Failed to parse data: " + e);
-                    Toast.makeText(MainActivity.this, "Failed to parse data, watch Logcat for more details",
-                            Toast.LENGTH_SHORT).show();
+                    Log.e("JSON", "Failed to parse top tracks data: " + e);
+                    runOnUiThread(() -> Toast.makeText(MainActivity.this, "Failed to parse top tracks data", Toast.LENGTH_SHORT).show());
                 }
             }
         });
+    }
+
+    private void fetchTopArtists(Request request) {
+        cancelCall(); // Cancel any existing call
+        mCall = mOkHttpClient.newCall(request);
+
+        mCall.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e("HTTP", "Failed to fetch top artists: " + e);
+                runOnUiThread(() -> Toast.makeText(MainActivity.this, "Failed to fetch top artists", Toast.LENGTH_SHORT).show());
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body().string());
+                    JSONArray items = jsonObject.getJSONArray("items");
+
+                    // Populate artistsNames with artist names
+                    for (int i = 0; i < items.length(); i++) {
+                        JSONObject item = items.getJSONObject(i);
+                        String artistName = item.getString("name");
+                        artistsNames.add(artistName);
+                    }
+
+                    // After fetching both top tracks and top artists, start the next activity
+                    startTopTracksActivity();
+
+                } catch (JSONException e) {
+                    Log.e("JSON", "Failed to parse top artists data: " + e);
+                    runOnUiThread(() -> Toast.makeText(MainActivity.this, "Failed to parse top artists data", Toast.LENGTH_SHORT).show());
+                }
+            }
+        });
+    }
+
+    private void startTopTracksActivity() {
+        //making new database entry
+        wrappedDatabase = new WrappedDatabase(this);
+        SpotifyWrapped sw = new SpotifyWrapped(trackNames, artistsNames);
+        String email = "r@gmail.com"; //CHANGE THIS TO GET CURRENT USER EMAIL!!!!!!!!!!!!!!!!!!!!!!
+        wrappedDatabase.insertSpotifyWrapped(sw, email);
+
+        //starting spotify wrapped
+        Intent intent = new Intent(MainActivity.this, TopTracksActivity.class);
+        intent.putStringArrayListExtra("topTracks", trackNames);
+        intent.putStringArrayListExtra("topArtists", artistsNames);
+        startActivity(intent);
     }
 
     /**
