@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView tokenTextView, codeTextView, profileTextView;
     private ArrayList<String> trackNames = new ArrayList<>();
+    private ArrayList<String> previewUrls = new ArrayList<>();
     private ArrayList<String> artistsNames = new ArrayList<>();
     private List<String> genreNames;
     private WrappedDatabase wrappedDatabase;
@@ -169,6 +170,12 @@ public class MainActivity extends AppCompatActivity {
                         trackNames.add(trackName);
                     }
 
+                    for (int i = 0; i < items.length(); i++) {
+                        JSONObject item = items.getJSONObject(i);
+                        String previewUrl = item.getString("preview_url");
+                        previewUrls.add(previewUrl);
+                    }
+
                     // After fetching top tracks, proceed to fetch top artists
                     fetchTopArtists(topArtistsRequest);
 
@@ -250,6 +257,7 @@ public class MainActivity extends AppCompatActivity {
         //starting spotify wrapped
         Intent intent = new Intent(MainActivity.this, TopTracksActivity.class);
         intent.putStringArrayListExtra("topTracks", trackNames);
+        intent.putStringArrayListExtra("previewUrls", previewUrls);
         intent.putStringArrayListExtra("topArtists", artistsNames);
         intent.putStringArrayListExtra("topGenres", (ArrayList<String>) genreNames);
         startActivity(intent);
