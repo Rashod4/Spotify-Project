@@ -20,7 +20,9 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -43,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView tokenTextView, codeTextView, profileTextView;
     private ArrayList<String> trackNames = new ArrayList<>();
     private ArrayList<String> artistsNames = new ArrayList<>();
+    private List<String> genreNames;
     private WrappedDatabase wrappedDatabase;
 
     @Override
@@ -201,6 +204,30 @@ public class MainActivity extends AppCompatActivity {
                         artistsNames.add(artistName);
                     }
 
+                    //ALGORITHM TO FIND TOP GENRES BASED ON ARTIST GENRES (THERE IS NO GENRE ENDPOINT)
+                    // Map to count genre occurrences
+                    Map<String, Integer> genreCountMap = new HashMap<>();
+
+                    // Iterate over each artist
+                    for (int i = 0; i < items.length(); i++) {
+                        JSONObject artistObject = items.getJSONObject(i);
+                        JSONArray genresArray = artistObject.getJSONArray("genres");
+
+                        // Iterate over genres of the artist
+                        for (int j = 0; j < genresArray.length(); j++) {
+                            String genre = genresArray.getString(j);
+                            // Update genre count map
+                            if (genreCountMap.containsKey(genre)) {
+                                int count = genreCountMap.get(genre);
+                                genreCountMap.put(genre, count + 1);
+                            } else {
+                                genreCountMap.put(genre, 1);
+                            }
+                        }
+                    }
+
+                    genreNames = getTopGenres(genreCountMap, 5);
+
                     // After fetching both top tracks and top artists, start the next activity
                     startTopTracksActivity();
 
@@ -223,7 +250,20 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, TopTracksActivity.class);
         intent.putStringArrayListExtra("topTracks", trackNames);
         intent.putStringArrayListExtra("topArtists", artistsNames);
+        intent.putStringArrayListExtra("topGenres", (ArrayList<String>) genreNames);
         startActivity(intent);
+    }
+
+    private List<String> getTopGenres(Map<String, Integer> genreCountMap, int numGenres) {
+        List<String> topGenres = new ArrayList<>();
+
+        // Sort genres by count in descending order
+        genreCountMap.entrySet().stream()
+                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+                .limit(numGenres)
+                .forEachOrdered(entry -> topGenres.add(entry.getKey()));
+
+        return topGenres;
     }
 
     /**
