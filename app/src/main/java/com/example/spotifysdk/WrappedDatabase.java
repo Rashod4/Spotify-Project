@@ -11,7 +11,7 @@ import java.util.List;
 
 public class WrappedDatabase extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "WrappedDatabase.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2; //CHANGE VERSION NUMBER IF YOU ADD COLUMNS TO DATABASE
 
     public WrappedDatabase(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -25,6 +25,7 @@ public class WrappedDatabase extends SQLiteOpenHelper {
                 "email TEXT," +
                 "topTracks TEXT," +
                 "topArtists TEXT," +
+                "topGenres TEXT," +
                 "FOREIGN KEY(email) REFERENCES LoginData(email)" +
                 ")";
         db.execSQL(createTable);
@@ -43,6 +44,7 @@ public class WrappedDatabase extends SQLiteOpenHelper {
         values.put("email", userEmail);
         values.put("topTracks", convertListToString(spotifyWrapped.getTopTracks()));
         values.put("topArtists", convertListToString(spotifyWrapped.getTopArtists()));
+        values.put("topGenres", convertListToString(spotifyWrapped.getTopGenres()));
 
         // Insert the values into the SpotifyWrapped table
         db.insert("SpotifyWrapped", null, values);

@@ -241,8 +241,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void startTopTracksActivity() {
         //making new database entry
+        //Make approprate changes in WrappedDatabse if adding new things
         wrappedDatabase = new WrappedDatabase(this);
-        SpotifyWrapped sw = new SpotifyWrapped(trackNames, artistsNames);
+        SpotifyWrapped sw = new SpotifyWrapped(trackNames, artistsNames, genreNames);
         String email = "r@gmail.com"; //CHANGE THIS TO GET CURRENT USER EMAIL!!!!!!!!!!!!!!!!!!!!!!
         wrappedDatabase.insertSpotifyWrapped(sw, email);
 
