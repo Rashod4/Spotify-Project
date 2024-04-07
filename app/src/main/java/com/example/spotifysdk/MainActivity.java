@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -64,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         Button codeBtn = (Button) findViewById(R.id.code_btn);
         //Button profileBtn = (Button) findViewById(R.id.profile_btn);
         Button createWrappedBtn = findViewById(R.id.create_wrapped_btn);
-
+        ImageView imageViewGear = findViewById(R.id.imageViewGear);
         // Set the click listeners for the buttons
 
         tokenBtn.setOnClickListener((v) -> {
@@ -82,7 +83,11 @@ public class MainActivity extends AppCompatActivity {
         createWrappedBtn.setOnClickListener((v) -> {
             generateSpotifyWrapped();
         });
-
+        imageViewGear.setOnClickListener((v) -> {
+            Intent intent = new Intent(this, EditAccount.class);
+            startActivity(intent);
+            finish(); // Call this to finish the current activity
+        });
     }
 
     /**
