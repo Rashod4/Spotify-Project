@@ -23,6 +23,9 @@ public class EditAccount extends AppCompatActivity {
         edit_button.setOnClickListener((v) -> {
             saveChanges(full_name.getText().toString(), email_change.getText().toString(), password_change.getText().toString());
         });
+        delete_button.setOnClickListener((v) -> {
+            deleteChanges(full_name.getText().toString());
+        });
     }
     public void saveChanges(String name, String email, String pwd) {
         String regexEmail = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
@@ -72,6 +75,33 @@ public class EditAccount extends AppCompatActivity {
                 return;
             }
 
+        }
+    }
+    public void deleteChanges(String name) {
+        if (name == null) {
+            Toast.makeText(this, "Verify name before deleting account!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        String[] parts = name.split(" ");
+        if (parts.length <=1) {
+            Toast.makeText(this, "Enter first and last name to delete!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        LoginDatabase database = LoginDatabase.getInstance(getApplicationContext());
+        String selection = "firstName = ? AND lastName = ?";
+        String[] selectionArgs = { parts[0], parts[1] }; // firstName and lastName should be the values you're looking for
+        int deletedRows = database.getWritableDatabase().delete(
+                "LoginData",  // The table name
+                selection,     // The selection criteria (WHERE clause)
+                selectionArgs  // The arguments for the selection criteria
+        );
+        if (deletedRows > 0) {
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            finish(); // Call this to finish the current activity
+        } else {
+            Toast.makeText(this, "Verify name does not exist", Toast.LENGTH_SHORT).show();
+            return;
         }
     }
 }
