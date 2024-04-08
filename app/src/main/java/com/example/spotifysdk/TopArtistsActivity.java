@@ -45,5 +45,13 @@ public class TopArtistsActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        Button back = findViewById(R.id.topArtistBack);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 }

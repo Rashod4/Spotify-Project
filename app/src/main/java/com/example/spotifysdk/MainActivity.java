@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String> previewUrls = new ArrayList<>();
     private ArrayList<String> artistsNames = new ArrayList<>();
     private ArrayList<String> imageUrls = new ArrayList<>();
+    private ArrayList<String> artistImageUrls = new ArrayList<>();
     private List<String> genreNames;
     private WrappedDatabase wrappedDatabase;
 
@@ -232,6 +233,17 @@ public class MainActivity extends AppCompatActivity {
                         JSONObject item = items.getJSONObject(i);
                         String artistName = item.getString("name");
                         artistsNames.add(artistName);
+
+                        // Fetch the image URL for the track
+                        // Retrieve the images array from the album object
+                        JSONArray images = item.getJSONArray("images");
+                        // Check if the images array is not empty
+                        if (images.length() > 0) {
+                            // Get the first image (which is usually the smallest size)
+                            JSONObject imageObject = images.getJSONObject(0);
+                            String imageUrl = imageObject.getString("url");
+                            artistImageUrls.add(imageUrl); // Add the image URL to the list
+                        }
                     }
 
                     //ALGORITHM TO FIND TOP GENRES BASED ON ARTIST GENRES (THERE IS NO GENRE ENDPOINT)
@@ -282,6 +294,7 @@ public class MainActivity extends AppCompatActivity {
         intent.putStringArrayListExtra("topTracks", trackNames);
         intent.putStringArrayListExtra("previewUrls", previewUrls);
         intent.putStringArrayListExtra("imageUrls", imageUrls);
+        intent.putStringArrayListExtra("artistImageUrls", artistImageUrls);
         intent.putStringArrayListExtra("topArtists", artistsNames);
         intent.putStringArrayListExtra("topGenres", (ArrayList<String>) genreNames);
         startActivity(intent);

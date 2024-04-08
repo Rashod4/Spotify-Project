@@ -31,5 +31,13 @@ public class TopGenresActivity extends AppCompatActivity {
             // For example, display a message or log an error
             Log.e("TopGenresActivity", "topGenres ArrayList is null");
         }
+
+        Button back = findViewById(R.id.topGenreBack);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 }
