@@ -12,7 +12,7 @@
         android:layout_width="270dp"
         android:layout_height="51dp"
         android:layout_marginTop="-500dp"
-        android:layout_marginEnd="-200dp"
+        android:layout_marginEnd="-600dp"
         android:fontFamily="@font/luckiest_guy"
         android:text="TextView"
         android:textSize="34sp"
@@ -22,6 +22,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.502" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="100dp"
+        android:layout_height="160dp"
+        android:layout_marginStart="-390dp"
+        app:layout_constraintBottom_toBottomOf="@id/topSong1"
+        app:layout_constraintStart_toEndOf="@id/topSong1"
+        app:layout_constraintTop_toTopOf="@id/topSong1"
+        app:layout_constraintVertical_bias="0.5" />
 
     <TextView
         android:id="@+id/topSong2"
@@ -38,6 +48,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.497" />
 
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="100dp"
+        android:layout_height="160dp"
+        android:layout_marginStart="-390dp"
+        app:layout_constraintBottom_toBottomOf="@id/topSong2"
+        app:layout_constraintStart_toEndOf="@id/topSong2"
+        app:layout_constraintTop_toTopOf="@id/topSong2"
+        app:layout_constraintVertical_bias="0.5" />
+
+
     <TextView
         android:id="@+id/topSong3"
         android:layout_width="270dp"
@@ -50,6 +71,16 @@
         app:layout_constraintEnd_toEndOf="@+id/topSong2"
         app:layout_constraintStart_toStartOf="@+id/topSong2"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="100dp"
+        android:layout_height="160dp"
+        android:layout_marginStart="-390dp"
+        app:layout_constraintBottom_toBottomOf="@id/topSong3"
+        app:layout_constraintStart_toEndOf="@id/topSong3"
+        app:layout_constraintTop_toTopOf="@id/topSong3"
+        app:layout_constraintVertical_bias="0.5" />
 
     <TextView
         android:id="@+id/topSong4"
@@ -66,6 +97,16 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.486" />
 
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="100dp"
+        android:layout_height="160dp"
+        android:layout_marginStart="-390dp"
+        app:layout_constraintBottom_toBottomOf="@id/topSong4"
+        app:layout_constraintStart_toEndOf="@id/topSong4"
+        app:layout_constraintTop_toTopOf="@id/topSong4"
+        app:layout_constraintVertical_bias="0.5" />
+
     <TextView
         android:id="@+id/topSong5"
         android:layout_width="270dp"
@@ -79,6 +120,16 @@
         app:layout_constraintStart_toStartOf="@+id/topSong4"
         app:layout_constraintTop_toBottomOf="@+id/topSong4"
         app:layout_constraintVertical_bias="0.548" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="100dp"
+        android:layout_height="160dp"
+        android:layout_marginStart="-390dp"
+        app:layout_constraintBottom_toBottomOf="@id/topSong5"
+        app:layout_constraintStart_toEndOf="@id/topSong5"
+        app:layout_constraintTop_toTopOf="@id/topSong5"
+        app:layout_constraintVertical_bias="0.5" />
 
     <Button
         android:id="@+id/topSongsNext"
@@ -108,5 +159,5 @@
         android:alpha="0.7"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-  
+
 </androidx.constraintlayout.widget.ConstraintLayout>

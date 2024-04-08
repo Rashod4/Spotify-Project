@@ -3,6 +3,8 @@ package com.example.spotifysdk;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,9 +12,14 @@ import android.view.View;
 import android.widget.Button;
 
 import android.text.TextUtils;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 
 
@@ -31,12 +38,29 @@ public class TopTracksActivity extends AppCompatActivity {
         previewUrls = getIntent().getStringArrayListExtra("previewUrls");
         ArrayList<String> topArtists = getIntent().getStringArrayListExtra("topArtists");
         ArrayList<String> topGenres = getIntent().getStringArrayListExtra("topGenres");
+        ArrayList<String> imageUrls = getIntent().getStringArrayListExtra("imageUrls");
 
         // Retrieves each song from the tropTracks arraylist and displays them in top_songs.xml
         for (int i = 0; i < 5; i++) {
             int textViewId = getResources().getIdentifier("topSong" + (i + 1), "id", getPackageName());
             TextView textView = findViewById(textViewId);
             textView.setText(topTracks.get(i));
+        }
+        // Load images into each ImageView using Glide
+        ArrayList<Integer> imageViewIds = new ArrayList<>();
+        imageViewIds.add(R.id.imageView1);
+        imageViewIds.add(R.id.imageView2);
+        imageViewIds.add(R.id.imageView3);
+        imageViewIds.add(R.id.imageView4);
+        imageViewIds.add(R.id.imageView5);
+
+        for (int i = 0; i < imageViewIds.size() && i < imageUrls.size(); i++) {
+            ImageView imageView = findViewById(imageViewIds.get(i));
+            String imageUrl = imageUrls.get(i);
+
+            Glide.with(this)
+                    .load(imageUrl)
+                    .into(imageView);
         }
 
         // Initialize media player
