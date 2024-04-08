@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String> trackNames = new ArrayList<>();
     private ArrayList<String> previewUrls = new ArrayList<>();
     private ArrayList<String> artistsNames = new ArrayList<>();
+    private ArrayList<String> imageUrls = new ArrayList<>();
     private List<String> genreNames;
     private WrappedDatabase wrappedDatabase;
 
@@ -168,18 +169,35 @@ public class MainActivity extends AppCompatActivity {
                     JSONObject jsonObject = new JSONObject(response.body().string());
                     JSONArray items = jsonObject.getJSONArray("items");
 
-                    // Populate trackNames with track names
                     for (int i = 0; i < items.length(); i++) {
+                        // Populate trackNames with track names
                         JSONObject item = items.getJSONObject(i);
                         String trackName = item.getString("name");
                         trackNames.add(trackName);
-                    }
 
-                    for (int i = 0; i < items.length(); i++) {
-                        JSONObject item = items.getJSONObject(i);
+                        //populate the previewUrls -> this is used to play music
                         String previewUrl = item.getString("preview_url");
                         previewUrls.add(previewUrl);
+
+                        // Fetch the image URL for the track
+                        // Retrieve the album object
+                        JSONObject albumObject = item.getJSONObject("album");
+                        // Retrieve the images array from the album object
+                        JSONArray images = albumObject.getJSONArray("images");
+                        // Check if the images array is not empty
+                        if (images.length() > 0) {
+                            // Get the first image (which is usually the smallest size)
+                            JSONObject imageObject = images.getJSONObject(0);
+                            String imageUrl = imageObject.getString("url");
+                            imageUrls.add(imageUrl); // Add the image URL to the list
+                        }
                     }
+
+//                    for (int i = 0; i < items.length(); i++) {
+//                        JSONObject item = items.getJSONObject(i);
+//                        String previewUrl = item.getString("preview_url");
+//                        previewUrls.add(previewUrl);
+//                    }
 
                     // After fetching top tracks, proceed to fetch top artists
                     fetchTopArtists(topArtistsRequest);
@@ -263,6 +281,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, TopTracksActivity.class);
         intent.putStringArrayListExtra("topTracks", trackNames);
         intent.putStringArrayListExtra("previewUrls", previewUrls);
+        intent.putStringArrayListExtra("imageUrls", imageUrls);
         intent.putStringArrayListExtra("topArtists", artistsNames);
         intent.putStringArrayListExtra("topGenres", (ArrayList<String>) genreNames);
         startActivity(intent);
