@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String> artistsNames = new ArrayList<>();
     private ArrayList<String> imageUrls = new ArrayList<>();
     private ArrayList<String> artistImageUrls = new ArrayList<>();
+    private ArrayList<String> albumNames = new ArrayList<>();
     private List<String> genreNames;
     private WrappedDatabase wrappedDatabase;
 
@@ -183,6 +184,9 @@ public class MainActivity extends AppCompatActivity {
                         // Fetch the image URL for the track
                         // Retrieve the album object
                         JSONObject albumObject = item.getJSONObject("album");
+                        String albumName = albumObject.getString("name");
+                        // Add the album name to a list (assuming you have a list for album names)
+                        albumNames.add(albumName);
                         // Retrieve the images array from the album object
                         JSONArray images = albumObject.getJSONArray("images");
                         // Check if the images array is not empty
@@ -192,6 +196,7 @@ public class MainActivity extends AppCompatActivity {
                             String imageUrl = imageObject.getString("url");
                             imageUrls.add(imageUrl); // Add the image URL to the list
                         }
+
                     }
 
 //                    for (int i = 0; i < items.length(); i++) {
@@ -296,6 +301,7 @@ public class MainActivity extends AppCompatActivity {
         intent.putStringArrayListExtra("imageUrls", imageUrls);
         intent.putStringArrayListExtra("artistImageUrls", artistImageUrls);
         intent.putStringArrayListExtra("topArtists", artistsNames);
+        intent.putStringArrayListExtra("topAlbums", albumNames);
         intent.putStringArrayListExtra("topGenres", (ArrayList<String>) genreNames);
         startActivity(intent);
     }

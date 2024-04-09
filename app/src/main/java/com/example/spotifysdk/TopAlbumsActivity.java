@@ -1,4 +1,5 @@
 package com.example.spotifysdk;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -11,21 +12,19 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-public class TopGenresActivity extends AppCompatActivity {
-    @Override
+
+public class TopAlbumsActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.top_genres);
+        setContentView(R.layout.top_albums);
 
-        ArrayList<String> topGenres = getIntent().getStringArrayListExtra("topGenres");
         ArrayList<String> topAlbums = getIntent().getStringArrayListExtra("topAlbums");
-
-        if (topGenres != null) {
+        if (topAlbums != null) {
             // Update UI to display top tracks
             for (int i = 0; i < 5; i++) {
-                int textViewId = getResources().getIdentifier("topGenre" + (i + 1), "id", getPackageName());
+                int textViewId = getResources().getIdentifier("topAlbum" + (i + 1), "id", getPackageName());
                 TextView textView = findViewById(textViewId);
-                textView.setText(topGenres.get(i));
+                textView.setText(topAlbums.get(i));
             }
         } else {
             // Handle the case where topArtists is null
@@ -33,17 +32,7 @@ public class TopGenresActivity extends AppCompatActivity {
             Log.e("TopGenresActivity", "topGenres ArrayList is null");
         }
 
-        Button next = findViewById(R.id.topGenreNext);
-        next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(TopGenresActivity.this, TopAlbumsActivity.class);
-                intent.putStringArrayListExtra("topAlbums", topAlbums);
-                startActivity(intent);
-            }
-        });
-
-        Button back = findViewById(R.id.topGenreBack);
+        Button back = findViewById(R.id.topAlbumBack);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

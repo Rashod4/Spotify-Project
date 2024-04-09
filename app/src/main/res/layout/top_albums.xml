@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/topAlbum1"
+        android:layout_width="270dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="190dp"
+        android:layout_marginTop="96dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/luckiest_guy"
+        android:text="TextView"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/topAlbum2"
+        android:layout_width="270dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="76dp"
+        android:fontFamily="@font/luckiest_guy"
+        android:text="TextView"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="@+id/topAlbum1"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/topAlbum1"
+        app:layout_constraintTop_toBottomOf="@+id/topAlbum1" />
+
+    <TextView
+        android:id="@+id/topAlbum3"
+        android:layout_width="270dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="82dp"
+        android:fontFamily="@font/luckiest_guy"
+        android:text="TextView"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="@+id/topAlbum2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/topAlbum2"
+        app:layout_constraintTop_toBottomOf="@+id/topAlbum2" />
+
+    <TextView
+        android:id="@+id/topAlbum4"
+        android:layout_width="270dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="81dp"
+        android:fontFamily="@font/luckiest_guy"
+        android:text="TextView"
+        android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="@+id/topAlbum3"
+        app:layout_constraintStart_toStartOf="@+id/topAlbum3"
+        app:layout_constraintTop_toBottomOf="@+id/topAlbum3" />
+
+    <TextView
+        android:id="@+id/topAlbum5"
+        android:layout_width="270dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="78dp"
+        android:layout_marginBottom="56dp"
+        android:fontFamily="@font/luckiest_guy"
+        android:text="TextView"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/topAlbum4"
+        app:layout_constraintStart_toStartOf="@+id/topAlbum4"
+        app:layout_constraintTop_toBottomOf="@+id/topAlbum4" />
+
+
+    <Button
+        android:id="@+id/topAlbumNext"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="19dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="670dp"
+        android:background="@drawable/button_round"
+        android:text="NEXT"
+        android:textStyle="bold"
+        android:alpha="0.7"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/topArtistBack" />
+
+    <Button
+        android:id="@+id/topAlbumBack"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="275dp"
+        android:layout_marginBottom="670dp"
+        android:background="@drawable/button_round"
+        android:text="Back"
+        android:textStyle="bold"
+        android:alpha="0.7"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
