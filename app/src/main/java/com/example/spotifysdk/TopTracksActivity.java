@@ -55,7 +55,7 @@ public class TopTracksActivity extends AppCompatActivity {
         imageViewIds.add(R.id.imageView4);
         imageViewIds.add(R.id.imageView5);
 
-        for (int i = 0; i < imageViewIds.size() && i < imageUrls.size(); i++) {
+        for (int i = 0; i < 5; i++) {
             ImageView imageView = findViewById(imageViewIds.get(i));
             String imageUrl = imageUrls.get(i);
 
