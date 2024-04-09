@@ -21,6 +21,7 @@ public class TopArtistsActivity extends AppCompatActivity {
         // Get the top tracks data from Intent extras
         ArrayList<String> topArtists = getIntent().getStringArrayListExtra("topArtists");
         ArrayList<String> topGenres = getIntent().getStringArrayListExtra("topGenres");
+        ArrayList<String> topAlbums = getIntent().getStringArrayListExtra("topAlbums");
 
         // Check if topArtists is null
         if (topArtists != null) {
@@ -42,6 +43,7 @@ public class TopArtistsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(TopArtistsActivity.this, TopGenresActivity.class);
                 intent.putStringArrayListExtra("topGenres", topGenres);
+                intent.putStringArrayListExtra("topAlbums", topAlbums);
                 startActivity(intent);
             }
         });
