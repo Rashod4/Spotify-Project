@@ -61,6 +61,7 @@ public class LoginActivity extends AppCompatActivity {
             LoginDatabase database = LoginDatabase.getInstance(getApplicationContext());
             if (database.checkUser(email, password)) {
                 Intent intent = new Intent(this, MainActivity.class);
+                intent.putExtra("email", email);
                 startActivity(intent);
                 finish(); // Call this to finish the current activity
             } else {
