@@ -35,8 +35,9 @@
 
     <EditText
         android:id="@+id/full_Name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="234dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="36dp"
         android:background="@color/material_dynamic_neutral50"
         android:backgroundTint="@color/material_dynamic_neutral50"
         android:ems="10"
@@ -46,16 +47,14 @@
         android:textAlignment="center"
         android:textColor="#1ED760"
         android:textColorHint="#1ED760"
-        app:layout_constraintBottom_toTopOf="@+id/password_change"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/settingsTitle"
-        app:layout_constraintVertical_bias="0.2" />
+        app:layout_constraintTop_toBottomOf="@+id/settingsTitle" />
 
     <EditText
         android:id="@+id/email_change"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="234dp"
+        android:layout_height="39dp"
         android:background="@color/material_dynamic_neutral50"
         android:backgroundTint="@color/material_dynamic_neutral50"
         android:ems="10"
@@ -65,17 +64,16 @@
         android:textAlignment="center"
         android:textColor="#1ED760"
         android:textColorHint="#1ED760"
-        app:layout_constraintBottom_toTopOf="@+id/password_change"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/settingsTitle"
-        app:layout_constraintVertical_bias="0.804" />
+        tools:layout_editor_absoluteY="236dp" />
 
     <EditText
         android:id="@+id/password_change"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="48dp"
+        android:layout_width="234dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="20dp"
         android:background="@color/material_dynamic_neutral50"
         android:backgroundTint="@color/material_dynamic_neutral50"
         android:ems="10"
@@ -86,22 +84,40 @@
         android:textAllCaps="true"
         android:textColor="#1ED760"
         android:textColorHint="#1ED760"
-        app:layout_constraintBottom_toTopOf="@+id/edit_login_info"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email_change" />
 
     <Button
         android:id="@+id/edit_login_info"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
+        android:layout_marginStart="156dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="157dp"
         android:backgroundTint="#1ED760"
         android:fontFamily="@font/cabin_semibold"
         android:text="Edit Login"
         android:textColor="@color/black"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/delete"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password_change" />
+
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#1ED760"
+        android:fontFamily="@font/cabin_semibold"
+        android:text="Back"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
