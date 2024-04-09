@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
 import android.net.Uri;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,10 +15,15 @@ import com.spotify.sdk.android.auth.AuthorizationClient;
 import com.spotify.sdk.android.auth.AuthorizationRequest;
 import com.spotify.sdk.android.auth.AuthorizationResponse;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -37,22 +44,35 @@ public class MainActivity extends AppCompatActivity {
     private Call mCall;
 
     private TextView tokenTextView, codeTextView, profileTextView;
+    private ArrayList<String> trackNames = new ArrayList<>();
+    private ArrayList<String> previewUrls = new ArrayList<>();
+    private ArrayList<String> artistsNames = new ArrayList<>();
+    private ArrayList<String> imageUrls = new ArrayList<>();
+    private ArrayList<String> artistImageUrls = new ArrayList<>();
+    private ArrayList<String> albumNames = new ArrayList<>();
+    private List<String> genreNames;
+    private WrappedDatabase wrappedDatabase;
+    private String userEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        userEmail = getIntent().getStringExtra("email");
+
         // Initialize the views
         tokenTextView = (TextView) findViewById(R.id.token_text_view);
         codeTextView = (TextView) findViewById(R.id.code_text_view);
         profileTextView = (TextView) findViewById(R.id.response_text_view);
 
+
         // Initialize the buttons
         Button tokenBtn = (Button) findViewById(R.id.token_btn);
         Button codeBtn = (Button) findViewById(R.id.code_btn);
-        Button profileBtn = (Button) findViewById(R.id.profile_btn);
-
+        //Button profileBtn = (Button) findViewById(R.id.profile_btn);
+        Button createWrappedBtn = findViewById(R.id.create_wrapped_btn);
+        ImageView imageViewGear = findViewById(R.id.imageViewGear);
         // Set the click listeners for the buttons
 
         tokenBtn.setOnClickListener((v) -> {
@@ -63,10 +83,14 @@ public class MainActivity extends AppCompatActivity {
             getCode();
         });
 
-        profileBtn.setOnClickListener((v) -> {
-            onGetUserProfileClicked();
+        createWrappedBtn.setOnClickListener((v) -> {
+            generateSpotifyWrapped();
         });
-
+        imageViewGear.setOnClickListener((v) -> {
+            Intent intent = new Intent(this, EditAccount.class);
+            startActivity(intent);
+            finish(); // Call this to finish the current activity
+        });
     }
 
     /**
@@ -112,45 +136,184 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * Get user profile
-     * This method will get the user profile using the token
-     */
-    public void onGetUserProfileClicked() {
+
+    private void generateSpotifyWrapped() {
         if (mAccessToken == null) {
-            Toast.makeText(this, "You need to get an access token first!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please authenticate with Spotify first", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Create a request to get the user profile
-        final Request request = new Request.Builder()
-                .url("https://api.spotify.com/v1/me")
+        // Make a combined request to fetch top tracks and top artists
+        Request topTracksRequest = new Request.Builder()
+                .url("https://api.spotify.com/v1/me/top/tracks?limit=5")
                 .addHeader("Authorization", "Bearer " + mAccessToken)
                 .build();
 
-        cancelCall();
-        mCall = mOkHttpClient.newCall(request);
+        Request topArtistsRequest = new Request.Builder()
+                .url("https://api.spotify.com/v1/me/top/artists?limit=5")
+                .addHeader("Authorization", "Bearer " + mAccessToken)
+                .build();
+
+        cancelCall(); // Cancel any existing call
+        mCall = mOkHttpClient.newCall(topTracksRequest);
 
         mCall.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                Log.d("HTTP", "Failed to fetch data: " + e);
-                Toast.makeText(MainActivity.this, "Failed to fetch data, watch Logcat for more details",
-                        Toast.LENGTH_SHORT).show();
+                Log.e("HTTP", "Failed to fetch top tracks: " + e);
+                runOnUiThread(() -> Toast.makeText(MainActivity.this, "Failed to fetch top tracks", Toast.LENGTH_SHORT).show());
             }
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 try {
-                    final JSONObject jsonObject = new JSONObject(response.body().string());
-                    setTextAsync(jsonObject.toString(3), profileTextView);
+                    JSONObject jsonObject = new JSONObject(response.body().string());
+                    JSONArray items = jsonObject.getJSONArray("items");
+
+                    for (int i = 0; i < items.length(); i++) {
+                        // Populate trackNames with track names
+                        JSONObject item = items.getJSONObject(i);
+                        String trackName = item.getString("name");
+                        trackNames.add(trackName);
+
+                        //populate the previewUrls -> this is used to play music
+                        String previewUrl = item.getString("preview_url");
+                        previewUrls.add(previewUrl);
+
+                        // Fetch the image URL for the track
+                        // Retrieve the album object
+                        JSONObject albumObject = item.getJSONObject("album");
+                        String albumName = albumObject.getString("name");
+                        // Add the album name to a list (assuming you have a list for album names)
+                        albumNames.add(albumName);
+                        // Retrieve the images array from the album object
+                        JSONArray images = albumObject.getJSONArray("images");
+                        // Check if the images array is not empty
+                        if (images.length() > 0) {
+                            // Get the first image (which is usually the smallest size)
+                            JSONObject imageObject = images.getJSONObject(0);
+                            String imageUrl = imageObject.getString("url");
+                            imageUrls.add(imageUrl); // Add the image URL to the list
+                        }
+
+                    }
+
+
+                    // After fetching top tracks, proceed to fetch top artists
+                    fetchTopArtists(topArtistsRequest);
+
                 } catch (JSONException e) {
-                    Log.d("JSON", "Failed to parse data: " + e);
-                    Toast.makeText(MainActivity.this, "Failed to parse data, watch Logcat for more details",
-                            Toast.LENGTH_SHORT).show();
+                    Log.e("JSON", "Failed to parse top tracks data: " + e);
+                    runOnUiThread(() -> Toast.makeText(MainActivity.this, "Failed to parse top tracks data", Toast.LENGTH_SHORT).show());
                 }
             }
         });
+    }
+
+    private void fetchTopArtists(Request request) {
+        cancelCall(); // Cancel any existing call
+        mCall = mOkHttpClient.newCall(request);
+
+        mCall.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e("HTTP", "Failed to fetch top artists: " + e);
+                runOnUiThread(() -> Toast.makeText(MainActivity.this, "Failed to fetch top artists", Toast.LENGTH_SHORT).show());
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                try {
+                    JSONObject jsonObject = new JSONObject(response.body().string());
+                    JSONArray items = jsonObject.getJSONArray("items");
+
+                    // Populate artistsNames with artist names
+                    for (int i = 0; i < items.length(); i++) {
+                        JSONObject item = items.getJSONObject(i);
+                        String artistName = item.getString("name");
+                        artistsNames.add(artistName);
+
+                        // Fetch the image URL for the track
+                        // Retrieve the images array from the album object
+                        JSONArray images = item.getJSONArray("images");
+                        // Check if the images array is not empty
+                        if (images.length() > 0) {
+                            // Get the first image (which is usually the smallest size)
+                            JSONObject imageObject = images.getJSONObject(0);
+                            String imageUrl = imageObject.getString("url");
+                            artistImageUrls.add(imageUrl); // Add the image URL to the list
+                        }
+                    }
+
+                    //ALGORITHM TO FIND TOP GENRES BASED ON ARTIST GENRES (THERE IS NO GENRE ENDPOINT)
+                    // Map to count genre occurrences
+                    Map<String, Integer> genreCountMap = new HashMap<>();
+
+                    // Iterate over each artist
+                    for (int i = 0; i < items.length(); i++) {
+                        JSONObject artistObject = items.getJSONObject(i);
+                        JSONArray genresArray = artistObject.getJSONArray("genres");
+
+                        // Iterate over genres of the artist
+                        for (int j = 0; j < genresArray.length(); j++) {
+                            String genre = genresArray.getString(j);
+                            // Update genre count map
+                            if (genreCountMap.containsKey(genre)) {
+                                int count = genreCountMap.get(genre);
+                                genreCountMap.put(genre, count + 1);
+                            } else {
+                                genreCountMap.put(genre, 1);
+                            }
+                        }
+                    }
+
+                    genreNames = getTopGenres(genreCountMap, 5);
+
+                    // After fetching both top tracks and top artists, start the next activity
+                    startTopTracksActivity();
+
+                } catch (JSONException e) {
+                    Log.e("JSON", "Failed to parse top artists data: " + e);
+                    runOnUiThread(() -> Toast.makeText(MainActivity.this, "Failed to parse top artists data", Toast.LENGTH_SHORT).show());
+                }
+            }
+        });
+    }
+
+    private void startTopTracksActivity() {
+        makeWrappedDatabaseEntry();
+
+        //starting spotify wrapped
+        Intent intent = new Intent(MainActivity.this, TopTracksActivity.class);
+        intent.putStringArrayListExtra("topTracks", trackNames);
+        intent.putStringArrayListExtra("previewUrls", previewUrls);
+        intent.putStringArrayListExtra("imageUrls", imageUrls);
+        intent.putStringArrayListExtra("artistImageUrls", artistImageUrls);
+        intent.putStringArrayListExtra("topArtists", artistsNames);
+        intent.putStringArrayListExtra("topAlbums", albumNames);
+        intent.putStringArrayListExtra("topGenres", (ArrayList<String>) genreNames);
+        startActivity(intent);
+    }
+
+    private List<String> getTopGenres(Map<String, Integer> genreCountMap, int numGenres) {
+        List<String> topGenres = new ArrayList<>();
+
+        // Sort genres by count in descending order
+        genreCountMap.entrySet().stream()
+                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+                .limit(numGenres)
+                .forEachOrdered(entry -> topGenres.add(entry.getKey()));
+
+        return topGenres;
+    }
+
+    private void makeWrappedDatabaseEntry() {
+        //making new database entry
+        //Make approprate changes in WrappedDatabse if adding new things
+        wrappedDatabase = new WrappedDatabase(this);
+        SpotifyWrapped sw = new SpotifyWrapped(trackNames, artistsNames, genreNames);
+        String email = userEmail;
+        wrappedDatabase.insertSpotifyWrapped(sw, email);
     }
 
     /**
@@ -164,6 +327,8 @@ public class MainActivity extends AppCompatActivity {
         runOnUiThread(() -> textView.setText(text));
     }
 
+
+
     /**
      * Get authentication request
      *
@@ -173,7 +338,7 @@ public class MainActivity extends AppCompatActivity {
     private AuthorizationRequest getAuthenticationRequest(AuthorizationResponse.Type type) {
         return new AuthorizationRequest.Builder(CLIENT_ID, type, getRedirectUri().toString())
                 .setShowDialog(false)
-                .setScopes(new String[] { "user-read-email" }) // <--- Change the scope of your requested token here
+                .setScopes(new String[] { "user-top-read" }) // <--- Change the scope of your requested token here
                 .setCampaign("your-campaign-token")
                 .build();
     }

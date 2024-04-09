@@ -14,11 +14,12 @@
         android:backgroundTint="@color/black"
         android:gravity="center_vertical"
         android:orientation="vertical"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_bias="0.05">
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
         <ImageView
             android:id="@+id/imageView"
@@ -62,8 +63,8 @@
             android:layout_gravity="center"
             android:layout_margin="8dp"
             android:background="@drawable/button_rectangle"
-            android:textColor="@color/white"
-            android:text="Request Code" />
+            android:text="Request Code"
+            android:textColor="@color/white" />
 
         <TextView
             android:id="@+id/response_text_view"
@@ -74,18 +75,34 @@
             tools:text="Line 1\nLine 2\nLine 3" />
 
         <LinearLayout
+            android:id="@+id/top_tracks_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center">
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/profile_btn">
 
             <Button
-                android:id="@+id/profile_btn"
+                android:id="@+id/create_wrapped_btn"
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/button_rectangle"
-                android:textColor="@color/white"
-                android:text="Get User Profile" />
+                android:text="Create Spotify wrapped"
+                android:textColor="@color/white" />
+
+            <ImageView
+                android:id="@+id/imageViewGear"
+                android:layout_width="61dp"
+                android:layout_height="107dp"
+                android:baselineAligned="false"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@drawable/settingimage" />
+
+
         </LinearLayout>
 
         <TextView
@@ -101,7 +118,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
 
     </LinearLayout>
 

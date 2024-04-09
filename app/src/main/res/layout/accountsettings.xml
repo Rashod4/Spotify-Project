@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/musicnotebackground">
+    android:background="@color/black"
+    android:backgroundTint="@color/black">
 
     <TextView
         android:id="@+id/settingsTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="40dp"
         android:fontFamily="@font/cabin_semibold"
         android:text="Settings"
         android:textColor="@color/material_dynamic_neutral60"
@@ -32,31 +33,62 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/login_settings"
+    <EditText
+        android:id="@+id/full_Name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:background="@color/material_dynamic_neutral50"
+        android:backgroundTint="@color/material_dynamic_neutral50"
+        android:ems="10"
         android:fontFamily="@font/cabin_semibold"
-        android:text="Username:"
+        android:hint="Verify Your Name"
+        android:inputType="text"
+        android:textAlignment="center"
         android:textColor="#1ED760"
-        android:textSize="30sp"
+        android:textColorHint="#1ED760"
+        app:layout_constraintBottom_toTopOf="@+id/password_change"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/settingsTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/settingsTitle"
+        app:layout_constraintVertical_bias="0.2" />
 
-    <TextView
-        android:id="@+id/password_settings"
+    <EditText
+        android:id="@+id/email_change"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
+        android:background="@color/material_dynamic_neutral50"
+        android:backgroundTint="@color/material_dynamic_neutral50"
+        android:ems="10"
         android:fontFamily="@font/cabin_semibold"
-        android:text="Password:"
+        android:hint="Change Email"
+        android:inputType="textEmailAddress"
+        android:textAlignment="center"
         android:textColor="#1ED760"
-        android:textSize="30sp"
+        android:textColorHint="#1ED760"
+        app:layout_constraintBottom_toTopOf="@+id/password_change"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/login_settings" />
+        app:layout_constraintTop_toBottomOf="@+id/settingsTitle"
+        app:layout_constraintVertical_bias="0.804" />
+
+    <EditText
+        android:id="@+id/password_change"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="48dp"
+        android:background="@color/material_dynamic_neutral50"
+        android:backgroundTint="@color/material_dynamic_neutral50"
+        android:ems="10"
+        android:fontFamily="@font/cabin_semibold"
+        android:hint="Change Password"
+        android:inputType="textPassword"
+        android:textAlignment="center"
+        android:textAllCaps="true"
+        android:textColor="#1ED760"
+        android:textColorHint="#1ED760"
+        app:layout_constraintBottom_toTopOf="@+id/edit_login_info"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/edit_login_info"
