@@ -11,14 +11,24 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
+
 public class TopGenresActivity extends AppCompatActivity {
+    private WrappedDatabase database;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.top_genres);
 
-        ArrayList<String> topGenres = getIntent().getStringArrayListExtra("topGenres");
-        ArrayList<String> topAlbums = getIntent().getStringArrayListExtra("topAlbums");
+        database = new WrappedDatabase(this);
+        String userEmail = getIntent().getStringExtra("email");
+        List<SpotifyWrapped> userSpotifyWrapped = database.getSpotifyWrapped(userEmail);
+        // Check if there's any SpotifyWrapped data available
+
+        // Get the topTracks from the most recent SpotifyWrapped object
+        SpotifyWrapped mostRecentWrapped = userSpotifyWrapped.get(userSpotifyWrapped.size() - 1);
+        List<String> topGenres = mostRecentWrapped.getTopGenres();
+
 
         if (topGenres != null) {
             // Update UI to display top tracks
@@ -38,7 +48,7 @@ public class TopGenresActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(TopGenresActivity.this, TopAlbumsActivity.class);
-                intent.putStringArrayListExtra("topAlbums", topAlbums);
+                intent.putExtra("email", userEmail);
                 startActivity(intent);
             }
         });

@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
 import android.net.Uri;
-import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -285,13 +284,7 @@ public class MainActivity extends AppCompatActivity {
 
         //starting spotify wrapped
         Intent intent = new Intent(MainActivity.this, TopTracksActivity.class);
-        intent.putStringArrayListExtra("topTracks", trackNames);
-        intent.putStringArrayListExtra("previewUrls", previewUrls);
-        intent.putStringArrayListExtra("imageUrls", imageUrls);
-        intent.putStringArrayListExtra("artistImageUrls", artistImageUrls);
-        intent.putStringArrayListExtra("topArtists", artistsNames);
-        intent.putStringArrayListExtra("topAlbums", albumNames);
-        intent.putStringArrayListExtra("topGenres", (ArrayList<String>) genreNames);
+        intent.putExtra("email", userEmail);
         startActivity(intent);
     }
 
@@ -311,7 +304,7 @@ public class MainActivity extends AppCompatActivity {
         //making new database entry
         //Make approprate changes in WrappedDatabse if adding new things
         wrappedDatabase = new WrappedDatabase(this);
-        SpotifyWrapped sw = new SpotifyWrapped(trackNames, artistsNames, genreNames);
+        SpotifyWrapped sw = new SpotifyWrapped(trackNames, artistsNames, genreNames, previewUrls, imageUrls, artistImageUrls, albumNames);
         String email = userEmail;
         wrappedDatabase.insertSpotifyWrapped(sw, email);
     }

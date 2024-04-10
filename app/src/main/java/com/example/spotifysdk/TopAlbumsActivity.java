@@ -12,13 +12,23 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TopAlbumsActivity extends AppCompatActivity{
+    private WrappedDatabase database;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.top_albums);
 
-        ArrayList<String> topAlbums = getIntent().getStringArrayListExtra("topAlbums");
+        database = new WrappedDatabase(this);
+        String userEmail = getIntent().getStringExtra("email");
+        List<SpotifyWrapped> userSpotifyWrapped = database.getSpotifyWrapped(userEmail);
+        // Check if there's any SpotifyWrapped data available
+
+        // Get the topTracks from the most recent SpotifyWrapped object
+        SpotifyWrapped mostRecentWrapped = userSpotifyWrapped.get(userSpotifyWrapped.size() - 1);
+        List<String> topAlbums = mostRecentWrapped.getTopAlbums();
+
         if (topAlbums != null) {
             // Update UI to display top tracks
             for (int i = 0; i < 5; i++) {
