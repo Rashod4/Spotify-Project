@@ -2,16 +2,19 @@ package com.example.spotifysdk;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class WrappedDatabase extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "WrappedDatabase.db";
-    private static final int DATABASE_VERSION = 2; //CHANGE VERSION NUMBER IF YOU ADD COLUMNS TO DATABASE
+    private static final int DATABASE_VERSION = 3; //CHANGE VERSION NUMBER IF YOU ADD COLUMNS TO DATABASE
 
     public WrappedDatabase(@Nullable Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -26,6 +29,10 @@ public class WrappedDatabase extends SQLiteOpenHelper {
                 "topTracks TEXT," +
                 "topArtists TEXT," +
                 "topGenres TEXT," +
+                "previewUrls TEXT," +
+                "imageUrls TEXT," +
+                "artistImageUrls TEXT," +
+                "topAlbums TEXT," +
                 "FOREIGN KEY(email) REFERENCES LoginData(email)" +
                 ")";
         db.execSQL(createTable);
@@ -45,6 +52,10 @@ public class WrappedDatabase extends SQLiteOpenHelper {
         values.put("topTracks", convertListToString(spotifyWrapped.getTopTracks()));
         values.put("topArtists", convertListToString(spotifyWrapped.getTopArtists()));
         values.put("topGenres", convertListToString(spotifyWrapped.getTopGenres()));
+        values.put("previewUrls", convertListToString(spotifyWrapped.getPreviewUrls()));
+        values.put("imageUrls", convertListToString(spotifyWrapped.getImageUrls()));
+        values.put("artistImageUrls", convertListToString(spotifyWrapped.getArtistImageUrls()));
+        values.put("topAlbums", convertListToString(spotifyWrapped.getTopAlbums()));
 
         // Insert the values into the SpotifyWrapped table
         db.insert("SpotifyWrapped", null, values);
@@ -62,4 +73,61 @@ public class WrappedDatabase extends SQLiteOpenHelper {
         }
         return sb.toString();
     }
+
+    public List<SpotifyWrapped> getSpotifyWrapped(String userEmail) {
+        List<SpotifyWrapped> spotifyWrappedList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // Define the columns to retrieve
+        String[] columns = {"email", "topTracks", "topArtists", "topGenres", "previewUrls",
+        "imageUrls", "artistImageUrls", "topAlbums"};
+
+        // Define the selection criteria (WHERE clause)
+        String selection = "email = ?";
+        String[] selectionArgs = {userEmail};
+
+        // Query the database to retrieve SpotifyWrapped records for the specified user
+        Cursor cursor = db.query("SpotifyWrapped", columns, selection, selectionArgs, null, null, null);
+
+        // Iterate through the cursor to retrieve each SpotifyWrapped record
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                String email = cursor.getString(0);
+                String topTracksStr = cursor.getString(1);
+                String topArtistsStr = cursor.getString(2);
+                String topGenresStr = cursor.getString(3);
+                String previewUrlsStr = cursor.getString(4);
+                String imageUrlsStr = cursor.getString(5);
+                String artistImageUrlsStr = cursor.getString(6);
+                String topAlbumsStr = cursor.getString(7);
+
+                // Convert comma-separated strings back to ArrayList<String>
+                List<String> topTracks = convertStringToList(topTracksStr);
+                List<String> topArtists = convertStringToList(topArtistsStr);
+                List<String> topGenres = convertStringToList(topGenresStr);
+                List<String> previewUrls = convertStringToList(previewUrlsStr);
+                List<String> imageUrls = convertStringToList(imageUrlsStr);
+                List<String> artistImageUrls = convertStringToList(artistImageUrlsStr);
+                List<String> topAlbums = convertStringToList(topAlbumsStr);
+
+                // Create a new SpotifyWrapped object and add it to the list
+                SpotifyWrapped spotifyWrapped = new SpotifyWrapped(topTracks, topArtists, topGenres, previewUrls,
+                        imageUrls, artistImageUrls, topAlbums);
+                spotifyWrappedList.add(spotifyWrapped);
+            } while (cursor.moveToNext());
+        }
+
+        // Close the cursor and database connection
+        if (cursor != null) {
+            cursor.close();
+        }
+        db.close();
+
+        return spotifyWrappedList;
+    }
+    // Helper method to convert a comma-separated string to a list of strings
+    private List<String> convertStringToList(String str) {
+        return Arrays.asList(str.split(","));
+    }
+
 }

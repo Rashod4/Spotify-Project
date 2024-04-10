@@ -21,28 +21,34 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class TopTracksActivity extends AppCompatActivity {
     private int currentTrackIndex = 0;
     private MediaPlayer mediaPlayer;
     private ArrayList<String> previewUrls;
+    private WrappedDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.top_songs);
 
-        // Get the top tracks data from Intent extras
-        ArrayList<String> topTracks = getIntent().getStringArrayListExtra("topTracks");
-        previewUrls = getIntent().getStringArrayListExtra("previewUrls");
-        ArrayList<String> topArtists = getIntent().getStringArrayListExtra("topArtists");
-        ArrayList<String> topGenres = getIntent().getStringArrayListExtra("topGenres");
-        ArrayList<String> imageUrls = getIntent().getStringArrayListExtra("imageUrls");
-        ArrayList<String> topAlbums = getIntent().getStringArrayListExtra("topAlbums");
+        database = new WrappedDatabase(this);
+        String userEmail = getIntent().getStringExtra("email");
+        List<SpotifyWrapped> userSpotifyWrapped = database.getSpotifyWrapped(userEmail);
+        // Check if there's any SpotifyWrapped data available
+
+        // Get the topTracks from the most recent SpotifyWrapped object
+        SpotifyWrapped mostRecentWrapped = userSpotifyWrapped.get(userSpotifyWrapped.size() - 1); //latest wrapped
+        List<String> topTracks = mostRecentWrapped.getTopTracks();
+        List<String> previewUrls = mostRecentWrapped.getPreviewUrls();
+        List<String> imageUrls = mostRecentWrapped.getImageUrls();
+
 
         // Retrieves each song from the tropTracks arraylist and displays them in top_songs.xml
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < topTracks.size(); i++) {
             int textViewId = getResources().getIdentifier("topSong" + (i + 1), "id", getPackageName());
             TextView textView = findViewById(textViewId);
             textView.setText(topTracks.get(i));
@@ -55,7 +61,7 @@ public class TopTracksActivity extends AppCompatActivity {
         imageViewIds.add(R.id.imageView4);
         imageViewIds.add(R.id.imageView5);
 
-        for (int i = 0; i < imageViewIds.size() && i < imageUrls.size(); i++) {
+        for (int i = 0; i < 5; i++) {
             ImageView imageView = findViewById(imageViewIds.get(i));
             String imageUrl = imageUrls.get(i);
 
@@ -87,9 +93,7 @@ public class TopTracksActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(TopTracksActivity.this, TopArtistsActivity.class);
-                intent.putStringArrayListExtra("topArtists", topArtists);
-                intent.putStringArrayListExtra("topGenres", topGenres);
-                intent.putStringArrayListExtra("topAlbums", topAlbums);
+                intent.putExtra("email", userEmail);
                 startActivity(intent);
             }
         });

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/duotopartistsbackground">
+
+    <TextView
+        android:id="@+id/user1TA1"
+        android:layout_width="85dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="76dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/user1TA2"
+        android:layout_width="76dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="24dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user1TA1" />
+
+    <TextView
+        android:id="@+id/user1TA3"
+        android:layout_width="75dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="20dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user1TA2" />
+
+    <TextView
+        android:id="@+id/user1TA4"
+        android:layout_width="78dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="60dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="275dp" />
+
+    <TextView
+        android:id="@+id/user1TA5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="27dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user1TA4" />
+
+    <TextView
+        android:id="@+id/user2TA5"
+        android:layout_width="288dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="672dp" />
+
+    <TextView
+        android:id="@+id/user2TA4"
+        android:layout_width="287dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="602dp" />
+
+    <TextView
+        android:id="@+id/user2TA3"
+        android:layout_width="289dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="536dp" />
+
+    <TextView
+        android:id="@+id/user2TA1"
+        android:layout_width="293dp"
+        android:layout_height="44dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.105"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="407dp" />
+
+    <TextView
+        android:id="@+id/user2TA2"
+        android:layout_width="291dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="467dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>

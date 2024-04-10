@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
 import android.net.Uri;
-import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -52,11 +51,14 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<String> albumNames = new ArrayList<>();
     private List<String> genreNames;
     private WrappedDatabase wrappedDatabase;
+    private String userEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        userEmail = getIntent().getStringExtra("email");
 
         // Initialize the views
         tokenTextView = (TextView) findViewById(R.id.token_text_view);
@@ -79,10 +81,6 @@ public class MainActivity extends AppCompatActivity {
         codeBtn.setOnClickListener((v) -> {
             getCode();
         });
-
-//        profileBtn.setOnClickListener((v) -> {
-//            onGetUserProfileClicked();
-//        });
 
         createWrappedBtn.setOnClickListener((v) -> {
             generateSpotifyWrapped();
@@ -199,11 +197,6 @@ public class MainActivity extends AppCompatActivity {
 
                     }
 
-//                    for (int i = 0; i < items.length(); i++) {
-//                        JSONObject item = items.getJSONObject(i);
-//                        String previewUrl = item.getString("preview_url");
-//                        previewUrls.add(previewUrl);
-//                    }
 
                     // After fetching top tracks, proceed to fetch top artists
                     fetchTopArtists(topArtistsRequest);
@@ -287,22 +280,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startTopTracksActivity() {
-        //making new database entry
-        //Make approprate changes in WrappedDatabse if adding new things
-        wrappedDatabase = new WrappedDatabase(this);
-        SpotifyWrapped sw = new SpotifyWrapped(trackNames, artistsNames, genreNames);
-        String email = "r@gmail.com"; //CHANGE THIS TO GET CURRENT USER EMAIL!!!!!!!!!!!!!!!!!!!!!!
-        wrappedDatabase.insertSpotifyWrapped(sw, email);
+        makeWrappedDatabaseEntry();
 
         //starting spotify wrapped
         Intent intent = new Intent(MainActivity.this, TopTracksActivity.class);
-        intent.putStringArrayListExtra("topTracks", trackNames);
-        intent.putStringArrayListExtra("previewUrls", previewUrls);
-        intent.putStringArrayListExtra("imageUrls", imageUrls);
-        intent.putStringArrayListExtra("artistImageUrls", artistImageUrls);
-        intent.putStringArrayListExtra("topArtists", artistsNames);
-        intent.putStringArrayListExtra("topAlbums", albumNames);
-        intent.putStringArrayListExtra("topGenres", (ArrayList<String>) genreNames);
+        intent.putExtra("email", userEmail);
         startActivity(intent);
     }
 
@@ -316,6 +298,15 @@ public class MainActivity extends AppCompatActivity {
                 .forEachOrdered(entry -> topGenres.add(entry.getKey()));
 
         return topGenres;
+    }
+
+    private void makeWrappedDatabaseEntry() {
+        //making new database entry
+        //Make approprate changes in WrappedDatabse if adding new things
+        wrappedDatabase = new WrappedDatabase(this);
+        SpotifyWrapped sw = new SpotifyWrapped(trackNames, artistsNames, genreNames, previewUrls, imageUrls, artistImageUrls, albumNames);
+        String email = userEmail;
+        wrappedDatabase.insertSpotifyWrapped(sw, email);
     }
 
     /**
