@@ -1,10 +1,12 @@
 package com.example.spotifysdk;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.os.Bundle;
 import android.content.Intent;
 import android.net.Uri;
-import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -284,15 +286,13 @@ public class MainActivity extends AppCompatActivity {
         makeWrappedDatabaseEntry();
 
         //starting spotify wrapped
-        Intent intent = new Intent(MainActivity.this, TopTracksActivity.class);
-        intent.putStringArrayListExtra("topTracks", trackNames);
-        intent.putStringArrayListExtra("previewUrls", previewUrls);
-        intent.putStringArrayListExtra("imageUrls", imageUrls);
-        intent.putStringArrayListExtra("artistImageUrls", artistImageUrls);
-        intent.putStringArrayListExtra("topArtists", artistsNames);
-        intent.putStringArrayListExtra("topAlbums", albumNames);
-        intent.putStringArrayListExtra("topGenres", (ArrayList<String>) genreNames);
-        startActivity(intent);
+        // Starting the next activity should be done on the UI thread for transition purposes
+        runOnUiThread(() -> {
+            Intent intent = new Intent(MainActivity.this, TopTracksActivity.class);
+            intent.putExtra("email", userEmail);
+            Bundle options = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this).toBundle();
+            startActivity(intent, options);
+        });
     }
 
     private List<String> getTopGenres(Map<String, Integer> genreCountMap, int numGenres) {
@@ -311,7 +311,7 @@ public class MainActivity extends AppCompatActivity {
         //making new database entry
         //Make approprate changes in WrappedDatabse if adding new things
         wrappedDatabase = new WrappedDatabase(this);
-        SpotifyWrapped sw = new SpotifyWrapped(trackNames, artistsNames, genreNames);
+        SpotifyWrapped sw = new SpotifyWrapped(trackNames, artistsNames, genreNames, previewUrls, imageUrls, artistImageUrls, albumNames);
         String email = userEmail;
         wrappedDatabase.insertSpotifyWrapped(sw, email);
     }

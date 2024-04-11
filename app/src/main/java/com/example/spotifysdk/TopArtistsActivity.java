@@ -8,20 +8,32 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
+import java.util.List;
+
 public class TopArtistsActivity extends AppCompatActivity {
+    private WrappedDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.top_artists);
 
-        // Get the top tracks data from Intent extras
-        ArrayList<String> topArtists = getIntent().getStringArrayListExtra("topArtists");
-        ArrayList<String> topGenres = getIntent().getStringArrayListExtra("topGenres");
-        ArrayList<String> topAlbums = getIntent().getStringArrayListExtra("topAlbums");
+        database = new WrappedDatabase(this);
+        String userEmail = getIntent().getStringExtra("email");
+        List<SpotifyWrapped> userSpotifyWrapped = database.getSpotifyWrapped(userEmail);
+        // Check if there's any SpotifyWrapped data available
+
+        // Get the topTracks from the most recent SpotifyWrapped object
+        SpotifyWrapped mostRecentWrapped = userSpotifyWrapped.get(userSpotifyWrapped.size() - 1); //latest wrapped
+        List<String> topArtists = mostRecentWrapped.getTopArtists();
+        List<String> artistImageUrls = mostRecentWrapped.getArtistImageUrls();
+
 
         // Check if topArtists is null
         if (topArtists != null) {
@@ -37,13 +49,29 @@ public class TopArtistsActivity extends AppCompatActivity {
             Log.e("TopArtistsActivity", "topArtists ArrayList is null");
         }
 
+        // Load images into each ImageView using Glide
+        ArrayList<Integer> imageViewIds = new ArrayList<>();
+        imageViewIds.add(R.id.imageView1);
+        imageViewIds.add(R.id.imageView2);
+        imageViewIds.add(R.id.imageView3);
+        imageViewIds.add(R.id.imageView4);
+        imageViewIds.add(R.id.imageView5);
+
+        for (int i = 0; i < 5; i++) {
+            ImageView imageView = findViewById(imageViewIds.get(i));
+            String imageUrl = artistImageUrls.get(i);
+
+            Glide.with(this)
+                    .load(imageUrl)
+                    .into(imageView);
+        }
+
         Button next = findViewById(R.id.topArtistNext);
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(TopArtistsActivity.this, TopGenresActivity.class);
-                intent.putStringArrayListExtra("topGenres", topGenres);
-                intent.putStringArrayListExtra("topAlbums", topAlbums);
+                intent.putExtra("email", userEmail);
                 startActivity(intent);
             }
         });

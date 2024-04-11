@@ -3,6 +3,9 @@
     <style name="Base.Theme.SpotifyProject" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:windowActivityTransitions">true</item>
+        <item name="android:windowEnterTransition">@transition/trans_amim</item>
+        <item name="android:windowExitTransition">@transition/trans_amim</item>
     </style>
 
     <style name="Theme.SpotifyProject" parent="Base.Theme.SpotifyProject" />
