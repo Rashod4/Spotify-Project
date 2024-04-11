@@ -46,22 +46,22 @@ public class TopAlbumsActivity extends AppCompatActivity{
             Log.e("TopGenresActivity", "topGenres ArrayList is null");
         }
 
-        // Load images into each ImageView using Glide
-        ArrayList<Integer> imageViewIds = new ArrayList<>();
-        imageViewIds.add(R.id.imageView1);
-        imageViewIds.add(R.id.imageView2);
-        imageViewIds.add(R.id.imageView3);
-        imageViewIds.add(R.id.imageView4);
-        imageViewIds.add(R.id.imageView5);
-
-        for (int i = 0; i < 5; i++) {
-            ImageView imageView = findViewById(imageViewIds.get(i));
-            String imageUrl = imageUrls.get(i);
-
-            Glide.with(this)
-                    .load(imageUrl)
-                    .into(imageView);
-        }
+//        // Load images into each ImageView using Glide
+//        ArrayList<Integer> imageViewIds = new ArrayList<>();
+//        imageViewIds.add(R.id.imageView1);
+//        imageViewIds.add(R.id.imageView2);
+//        imageViewIds.add(R.id.imageView3);
+//        imageViewIds.add(R.id.imageView4);
+//        imageViewIds.add(R.id.imageView5);
+//
+//        for (int i = 0; i < 5; i++) {
+//            ImageView imageView = findViewById(imageViewIds.get(i));
+//            String imageUrl = imageUrls.get(i);
+//
+//            Glide.with(this)
+//                    .load(imageUrl)
+//                    .into(imageView);
+//        }
 
         Button back = findViewById(R.id.topAlbumBack);
         back.setOnClickListener(new View.OnClickListener() {
