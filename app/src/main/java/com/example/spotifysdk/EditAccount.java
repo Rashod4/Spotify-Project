@@ -85,33 +85,6 @@ public class EditAccount extends AppCompatActivity {
 
         }
     }
-//    public void deleteChanges(String name) {
-//        if (name == null) {
-//            Toast.makeText(this, "Verify name before deleting account!", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//        String[] parts = name.split(" ");
-//        if (parts.length <=1) {
-//            Toast.makeText(this, "Enter first and last name to delete!", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//        LoginDatabase database = LoginDatabase.getInstance(getApplicationContext());
-//        String selection = "firstName = ? AND lastName = ?";
-//        String[] selectionArgs = { parts[0], parts[1] }; // firstName and lastName should be the values you're looking for
-//        int deletedRows = database.getWritableDatabase().delete(
-//                "LoginData",  // The table name
-//                selection,     // The selection criteria (WHERE clause)
-//                selectionArgs  // The arguments for the selection criteria
-//        );
-//        if (deletedRows > 0) {
-//            Intent intent = new Intent(this, LoginActivity.class);
-//            startActivity(intent);
-//            finish(); // Call this to finish the current activity
-//        } else {
-//            Toast.makeText(this, "Verify name does not exist", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//    }
 
     public void deleteChanges(String email) {
         if (email == null || email.isEmpty()) {
