@@ -26,6 +26,14 @@ public class EditAccount extends AppCompatActivity {
         delete_button.setOnClickListener((v) -> {
             deleteChanges(full_name.getText().toString());
         });
+
+        Button backButton = findViewById(R.id.settings_back);
+        backButton.setOnClickListener(v -> {
+            // Send the user back to MainActivity
+            Intent intent = new Intent(EditAccount.this, MainActivity.class);
+            startActivity(intent);
+            finish(); // Call this to finish the current activity
+        });
     }
     public void saveChanges(String name, String email, String pwd) {
         String regexEmail = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
