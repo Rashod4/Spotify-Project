@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -74,6 +75,15 @@ public class MainActivity extends AppCompatActivity {
         Button createWrappedBtn = findViewById(R.id.create_wrapped_btn);
         ImageView imageViewGear = findViewById(R.id.imageViewGear);
         // Set the click listeners for the buttons
+
+        historyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
+                intent.putExtra("email", userEmail);
+                startActivity(intent);
+            }
+        });
 
         tokenBtn.setOnClickListener((v) -> {
             getToken();
