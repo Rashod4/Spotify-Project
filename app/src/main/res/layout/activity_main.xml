@@ -92,7 +92,15 @@
                 android:background="@drawable/button_wrapped"
                 android:text="Create Spotify wrapped"
                 android:textColor="@color/white" />
-
+            <Button
+                android:id="@+id/create_duo_wrapped_btn"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/button_wrapped"
+                android:text="Duo Wrapped!"
+                android:textColor="@color/white" />
             <ImageView
                 android:id="@+id/imageViewGear"
                 android:layout_width="61dp"
