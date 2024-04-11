@@ -26,6 +26,7 @@
         android:fontFamily="@font/luckiest_guy"
         android:text="TextView"
         android:textSize="30sp"
+        android:gravity="center_vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,6 +50,7 @@
         android:fontFamily="@font/luckiest_guy"
         android:text="TextView"
         android:textSize="30sp"
+        android:gravity="center_vertical"
         app:layout_constraintEnd_toEndOf="@+id/topArtist1"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/topArtist1"
@@ -62,7 +64,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/topArtist3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/topArtist3"
-        app:layout_constraintVertical_bias="0.545" />
+        app:layout_constraintVertical_bias="0.293" />
 
     <TextView
         android:id="@+id/topArtist3"
@@ -72,6 +74,7 @@
         android:fontFamily="@font/luckiest_guy"
         android:text="TextView"
         android:textSize="30sp"
+        android:gravity="center_vertical"
         app:layout_constraintEnd_toEndOf="@+id/topArtist2"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/topArtist2"
@@ -84,7 +87,8 @@
         android:layout_marginEnd="244dp"
         app:layout_constraintBottom_toBottomOf="@+id/topArtist4"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/topArtist4" />
+        app:layout_constraintTop_toTopOf="@+id/topArtist4"
+        app:layout_constraintVertical_bias="0.31" />
 
     <TextView
         android:id="@+id/topArtist4"
@@ -94,10 +98,12 @@
         android:fontFamily="@font/luckiest_guy"
         android:text="TextView"
         android:textSize="30sp"
+        android:gravity="center_vertical"
         app:layout_constraintEnd_toEndOf="@+id/topArtist3"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/topArtist3"
         app:layout_constraintTop_toBottomOf="@+id/topArtist3" />
+
 
     <ImageView
         android:id="@+id/imageView5"
@@ -106,8 +112,8 @@
         android:layout_marginEnd="244dp"
         app:layout_constraintBottom_toBottomOf="@+id/topArtist5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/topArtist5" />
-
+        app:layout_constraintTop_toTopOf="@+id/topArtist5"
+        app:layout_constraintVertical_bias="0.172" />
 
     <TextView
         android:id="@+id/topArtist5"
@@ -118,6 +124,7 @@
         android:fontFamily="@font/luckiest_guy"
         android:text="TextView"
         android:textSize="30sp"
+        android:gravity="center_vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/topArtist4"
         app:layout_constraintHorizontal_bias="0.0"
@@ -131,7 +138,6 @@
         android:layout_height="45dp"
         android:layout_marginStart="19dp"
         android:layout_marginBottom="668dp"
-        android:alpha="0.8"
         android:background="@drawable/button_round"
         android:text="NEXT"
         android:textStyle="bold"
@@ -146,7 +152,6 @@
         android:layout_height="45dp"
         android:layout_marginStart="12dp"
         android:layout_marginBottom="668dp"
-        android:alpha="0.8"
         android:background="@drawable/button_round"
         android:text="Back"
         android:textStyle="bold"
