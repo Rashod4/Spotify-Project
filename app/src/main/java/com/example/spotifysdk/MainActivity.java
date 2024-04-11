@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
         Button codeBtn = (Button) findViewById(R.id.code_btn);
         //Button profileBtn = (Button) findViewById(R.id.profile_btn);
         Button createWrappedBtn = findViewById(R.id.create_wrapped_btn);
+        Button createDuoWrappedBtn = findViewById(R.id.create_duo_wrapped_btn);
         ImageView imageViewGear = findViewById(R.id.imageViewGear);
         // Set the click listeners for the buttons
 
@@ -87,6 +88,11 @@ public class MainActivity extends AppCompatActivity {
 
         createWrappedBtn.setOnClickListener((v) -> {
             generateSpotifyWrapped();
+        });
+        createDuoWrappedBtn.setOnClickListener((v) -> {
+            Intent intent = new Intent(this, AddFriend.class);
+            startActivity(intent);
+            finish(); // Call this to finish the current activity
         });
         imageViewGear.setOnClickListener((v) -> {
             Intent intent = new Intent(this, EditAccount.class);

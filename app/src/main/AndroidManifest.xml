@@ -29,6 +29,7 @@
         <activity android:name=".TopArtistsActivity" />
         <activity android:name=".TopGenresActivity" />
         <activity android:name=".TopAlbumsActivity" />
+        <activity android:name=".AddFriend" />
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
