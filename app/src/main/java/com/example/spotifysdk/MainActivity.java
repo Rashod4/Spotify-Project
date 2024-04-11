@@ -1,6 +1,9 @@
 package com.example.spotifysdk;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.os.Bundle;
 import android.content.Intent;
 import android.net.Uri;
@@ -283,9 +286,13 @@ public class MainActivity extends AppCompatActivity {
         makeWrappedDatabaseEntry();
 
         //starting spotify wrapped
-        Intent intent = new Intent(MainActivity.this, TopTracksActivity.class);
-        intent.putExtra("email", userEmail);
-        startActivity(intent);
+        // Starting the next activity should be done on the UI thread for transition purposes
+        runOnUiThread(() -> {
+            Intent intent = new Intent(MainActivity.this, TopTracksActivity.class);
+            intent.putExtra("email", userEmail);
+            Bundle options = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this).toBundle();
+            startActivity(intent, options);
+        });
     }
 
     private List<String> getTopGenres(Map<String, Integer> genreCountMap, int numGenres) {
