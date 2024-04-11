@@ -135,32 +135,5 @@ public class TopTracksActivity extends AppCompatActivity {
         }
     }
 
-
-
-//    @Override
-//    protected void onPause() {
-//        super.onPause();
-//        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
-//            mediaPlayer.pause();
-//        }
-//    }
-//
-//    @Override
-//    protected void onDestroy() {
-//        super.onDestroy();
-//        if (mediaPlayer != null) {
-//            mediaPlayer.release();
-//            mediaPlayer = null;
-//        }
-//    }
-//
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        // Resume playback when the activity is resumed
-//        if (mediaPlayer != null && !mediaPlayer.isPlaying()) {
-//            mediaPlayer.start();
-//        }
-//    }
 }
 
