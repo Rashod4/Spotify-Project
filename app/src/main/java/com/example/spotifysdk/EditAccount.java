@@ -26,6 +26,14 @@ public class EditAccount extends AppCompatActivity {
         delete_button.setOnClickListener((v) -> {
             deleteChanges(full_name.getText().toString());
         });
+
+        Button backButton = findViewById(R.id.settings_back);
+        backButton.setOnClickListener(v -> {
+            // Send the user back to MainActivity
+            Intent intent = new Intent(EditAccount.this, MainActivity.class);
+            startActivity(intent);
+            finish(); // Call this to finish the current activity
+        });
     }
     public void saveChanges(String name, String email, String pwd) {
         String regexEmail = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
@@ -77,31 +85,72 @@ public class EditAccount extends AppCompatActivity {
 
         }
     }
-    public void deleteChanges(String name) {
-        if (name == null) {
-            Toast.makeText(this, "Verify name before deleting account!", Toast.LENGTH_SHORT).show();
+//    public void deleteChanges(String name) {
+//        if (name == null) {
+//            Toast.makeText(this, "Verify name before deleting account!", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//        String[] parts = name.split(" ");
+//        if (parts.length <=1) {
+//            Toast.makeText(this, "Enter first and last name to delete!", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//        LoginDatabase database = LoginDatabase.getInstance(getApplicationContext());
+//        String selection = "firstName = ? AND lastName = ?";
+//        String[] selectionArgs = { parts[0], parts[1] }; // firstName and lastName should be the values you're looking for
+//        int deletedRows = database.getWritableDatabase().delete(
+//                "LoginData",  // The table name
+//                selection,     // The selection criteria (WHERE clause)
+//                selectionArgs  // The arguments for the selection criteria
+//        );
+//        if (deletedRows > 0) {
+//            Intent intent = new Intent(this, LoginActivity.class);
+//            startActivity(intent);
+//            finish(); // Call this to finish the current activity
+//        } else {
+//            Toast.makeText(this, "Verify name does not exist", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//    }
+
+    public void deleteChanges(String email) {
+        if (email == null || email.isEmpty()) {
+            Toast.makeText(this, "Please provide a valid email", Toast.LENGTH_SHORT).show();
             return;
         }
-        String[] parts = name.split(" ");
-        if (parts.length <=1) {
-            Toast.makeText(this, "Enter first and last name to delete!", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        LoginDatabase database = LoginDatabase.getInstance(getApplicationContext());
-        String selection = "firstName = ? AND lastName = ?";
-        String[] selectionArgs = { parts[0], parts[1] }; // firstName and lastName should be the values you're looking for
-        int deletedRows = database.getWritableDatabase().delete(
+
+        // Delete user's account from LoginData table
+        LoginDatabase loginDatabase = LoginDatabase.getInstance(getApplicationContext());
+        String loginSelection = "email = ?";
+        String[] loginSelectionArgs = {email};
+        int loginDeletedRows = loginDatabase.getWritableDatabase().delete(
                 "LoginData",  // The table name
-                selection,     // The selection criteria (WHERE clause)
-                selectionArgs  // The arguments for the selection criteria
+                loginSelection,     // The selection criteria (WHERE clause)
+                loginSelectionArgs  // The arguments for the selection criteria
         );
-        if (deletedRows > 0) {
-            Intent intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
-            finish(); // Call this to finish the current activity
+
+        if (loginDeletedRows > 0) {
+            // Delete user's SpotifyWrapped records from SpotifyWrapped table
+            WrappedDatabase wrappedDatabase = new WrappedDatabase(getApplicationContext());
+            String wrappedSelection = "email = ?";
+            String[] wrappedSelectionArgs = {email};
+            int wrappedDeletedRows = wrappedDatabase.getWritableDatabase().delete(
+                    "SpotifyWrapped",  // The table name
+                    wrappedSelection,     // The selection criteria (WHERE clause)
+                    wrappedSelectionArgs  // The arguments for the selection criteria
+            );
+
+            if (wrappedDeletedRows > 0) {
+                Toast.makeText(this, "Account deleted successfully!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, LoginActivity.class);
+                startActivity(intent);
+                finish(); // Call this to finish the current activity
+            } else {
+                Toast.makeText(this, "Failed to delete account data", Toast.LENGTH_SHORT).show();
+            }
         } else {
-            Toast.makeText(this, "Verify name does not exist", Toast.LENGTH_SHORT).show();
-            return;
+            Toast.makeText(this, "Account not found", Toast.LENGTH_SHORT).show();
         }
     }
+
 }
