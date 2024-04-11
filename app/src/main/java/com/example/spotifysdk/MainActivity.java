@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -72,11 +73,21 @@ public class MainActivity extends AppCompatActivity {
         // Initialize the buttons
         Button tokenBtn = (Button) findViewById(R.id.token_btn);
         Button codeBtn = (Button) findViewById(R.id.code_btn);
+        Button historyBtn = (Button) findViewById(R.id.historyButton);
         //Button profileBtn = (Button) findViewById(R.id.profile_btn);
         Button createWrappedBtn = findViewById(R.id.create_wrapped_btn);
         Button createDuoWrappedBtn = findViewById(R.id.create_duo_wrapped_btn);
         ImageView imageViewGear = findViewById(R.id.imageViewGear);
         // Set the click listeners for the buttons
+
+        historyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
+                intent.putExtra("email", userEmail);
+                startActivity(intent);
+            }
+        });
 
         tokenBtn.setOnClickListener((v) -> {
             getToken();

@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -33,6 +34,7 @@ public class WrappedDatabase extends SQLiteOpenHelper {
                 "imageUrls TEXT," +
                 "artistImageUrls TEXT," +
                 "topAlbums TEXT," +
+                "dateEntry DATE," +
                 "FOREIGN KEY(email) REFERENCES LoginData(email)" +
                 ")";
         db.execSQL(createTable);
@@ -56,6 +58,7 @@ public class WrappedDatabase extends SQLiteOpenHelper {
         values.put("imageUrls", convertListToString(spotifyWrapped.getImageUrls()));
         values.put("artistImageUrls", convertListToString(spotifyWrapped.getArtistImageUrls()));
         values.put("topAlbums", convertListToString(spotifyWrapped.getTopAlbums()));
+        values.put("dateEntry", LocalDateTime.now().toString());
 
         // Insert the values into the SpotifyWrapped table
         db.insert("SpotifyWrapped", null, values);
@@ -80,7 +83,7 @@ public class WrappedDatabase extends SQLiteOpenHelper {
 
         // Define the columns to retrieve
         String[] columns = {"email", "topTracks", "topArtists", "topGenres", "previewUrls",
-        "imageUrls", "artistImageUrls", "topAlbums"};
+        "imageUrls", "artistImageUrls", "topAlbums", "dateEntry"};
 
         // Define the selection criteria (WHERE clause)
         String selection = "email = ?";
@@ -100,6 +103,7 @@ public class WrappedDatabase extends SQLiteOpenHelper {
                 String imageUrlsStr = cursor.getString(5);
                 String artistImageUrlsStr = cursor.getString(6);
                 String topAlbumsStr = cursor.getString(7);
+                String dateEntryStr = cursor.getString(8);
 
                 // Convert comma-separated strings back to ArrayList<String>
                 List<String> topTracks = convertStringToList(topTracksStr);
@@ -109,10 +113,11 @@ public class WrappedDatabase extends SQLiteOpenHelper {
                 List<String> imageUrls = convertStringToList(imageUrlsStr);
                 List<String> artistImageUrls = convertStringToList(artistImageUrlsStr);
                 List<String> topAlbums = convertStringToList(topAlbumsStr);
+                LocalDateTime dateEntry = LocalDateTime.parse(dateEntryStr);
 
                 // Create a new SpotifyWrapped object and add it to the list
                 SpotifyWrapped spotifyWrapped = new SpotifyWrapped(topTracks, topArtists, topGenres, previewUrls,
-                        imageUrls, artistImageUrls, topAlbums);
+                        imageUrls, artistImageUrls, topAlbums, dateEntry);
                 spotifyWrappedList.add(spotifyWrapped);
             } while (cursor.moveToNext());
         }
