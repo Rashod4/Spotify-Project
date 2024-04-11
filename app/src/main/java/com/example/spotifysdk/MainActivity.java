@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
         // Initialize the buttons
         Button tokenBtn = (Button) findViewById(R.id.token_btn);
         Button codeBtn = (Button) findViewById(R.id.code_btn);
+        Button historyBtn = (Button) findViewById(R.id.historyButton);
         //Button profileBtn = (Button) findViewById(R.id.profile_btn);
         Button createWrappedBtn = findViewById(R.id.create_wrapped_btn);
         ImageView imageViewGear = findViewById(R.id.imageViewGear);
