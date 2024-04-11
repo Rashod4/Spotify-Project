@@ -35,7 +35,7 @@ public class TopAlbumsActivity extends AppCompatActivity{
 
         if (topAlbums != null) {
             // Update UI to display top tracks
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < 4; i++) {
                 int textViewId = getResources().getIdentifier("topAlbum" + (i + 1), "id", getPackageName());
                 TextView textView = findViewById(textViewId);
                 textView.setText(topAlbums.get(i));
