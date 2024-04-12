@@ -10,11 +10,12 @@ public class SpotifyWrapped {
     private List<String> imageUrls;
     private List<String> artistImageUrls;
     private List<String> topAlbums;
+    private String date;
 
 
     public SpotifyWrapped(List<String> topArtists, List<String> topTracks, List<String> topGenres,
                           List<String> previewUrls, List<String> imageUrls, List<String> artistImageUrls,
-                          List<String> topAlbums) {
+                          List<String> topAlbums, String date) {
         this.topArtists = topArtists;
         this.topTracks = topTracks;
         this.topGenres = topGenres;
@@ -22,6 +23,11 @@ public class SpotifyWrapped {
         this.imageUrls = imageUrls;
         this.artistImageUrls = artistImageUrls;
         this.topAlbums = topAlbums;
+        this.date = date;
+    }
+
+    public String getDate() {
+        return date;
     }
 
     public List<String> getPreviewUrls() {

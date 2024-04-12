@@ -113,6 +113,16 @@
 
         </LinearLayout>
 
+        <Button
+            android:id="@+id/history_btn"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/button_wrapped"
+            android:text="Wrapped History"
+            android:textColor="@color/white" />
+
         <TextView
             android:id="@+id/login_title"
             android:layout_width="wrap_content"
