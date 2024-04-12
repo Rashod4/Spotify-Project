@@ -3,23 +3,18 @@ package com.example.spotifysdk;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +25,7 @@ public class TopTracksActivity extends AppCompatActivity {
     private ArrayList<String> previewUrls;
     private WrappedDatabase database;
     private SpotifyWrapped mostRecentWrapped;
+    private String date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,13 +38,10 @@ public class TopTracksActivity extends AppCompatActivity {
         List<SpotifyWrapped> userSpotifyWrapped = database.getSpotifyWrapped(userEmail);
 
         // Check if the intent is coming from HistoryActivity
-        if (getIntent().hasExtra("source")) {
-            String source = getIntent().getStringExtra("source");
-            if (source != null && source.equals("HistoryActivity")) {
-                // Intent is coming from HistoryActivity
-                String date = getIntent().getStringExtra("date");
-                mostRecentWrapped = findWrappedByDate(userSpotifyWrapped, date);
-            }
+        if (getIntent().hasExtra("date")) {
+            // Intent is coming from HistoryActivity
+            date = getIntent().getStringExtra("date");
+            mostRecentWrapped = findWrappedByDate(userSpotifyWrapped, date);
         } else {
             mostRecentWrapped = userSpotifyWrapped.get(userSpotifyWrapped.size() - 1); //latest wrapped
         }
@@ -108,8 +101,11 @@ public class TopTracksActivity extends AppCompatActivity {
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(TopTracksActivity.this, TopArtistsActivity.class);
+                Intent intent = new Intent(TopTracksActivity.this, Transition3Activity.class);
                 intent.putExtra("email", userEmail);
+                if (date != null && !date.isEmpty()) {
+                    intent.putExtra("date", date);
+                }
                 startActivity(intent);
             }
         });

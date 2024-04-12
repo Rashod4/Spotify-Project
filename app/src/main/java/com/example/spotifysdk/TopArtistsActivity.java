@@ -18,6 +18,8 @@ import java.util.List;
 
 public class TopArtistsActivity extends AppCompatActivity {
     private WrappedDatabase database;
+    private String date;
+    private SpotifyWrapped mostRecentWrapped;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +31,14 @@ public class TopArtistsActivity extends AppCompatActivity {
         List<SpotifyWrapped> userSpotifyWrapped = database.getSpotifyWrapped(userEmail);
         // Check if there's any SpotifyWrapped data available
 
+        if (getIntent().hasExtra("date")) {
+            date = getIntent().getStringExtra("date");
+            mostRecentWrapped = findWrappedByDate(userSpotifyWrapped, date);
+        } else {
+            mostRecentWrapped = userSpotifyWrapped.get(userSpotifyWrapped.size() - 1); //latest wrapped
+        }
+
         // Get the topTracks from the most recent SpotifyWrapped object
-        SpotifyWrapped mostRecentWrapped = userSpotifyWrapped.get(userSpotifyWrapped.size() - 1); //latest wrapped
         List<String> topArtists = mostRecentWrapped.getTopArtists();
         List<String> artistImageUrls = mostRecentWrapped.getArtistImageUrls();
 
@@ -83,5 +91,14 @@ public class TopArtistsActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private SpotifyWrapped findWrappedByDate(List<SpotifyWrapped> wrappedList, String date) {
+        for (SpotifyWrapped wrapped : wrappedList) {
+            if (wrapped.getDate().equals(date)) {
+                return wrapped;
+            }
+        }
+        return null;
     }
 }

@@ -318,7 +318,7 @@ public class MainActivity extends AppCompatActivity {
         //starting spotify wrapped
         // Starting the next activity should be done on the UI thread for transition purposes
         runOnUiThread(() -> {
-            Intent intent = new Intent(MainActivity.this, TopTracksActivity.class);
+            Intent intent = new Intent(MainActivity.this, Transition1Activity.class);
             intent.putExtra("email", userEmail);
             Bundle options = ActivityOptions.makeSceneTransitionAnimation(MainActivity.this).toBundle();
             startActivity(intent, options);

@@ -72,8 +72,8 @@ public class HistoryActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HistoryActivity.this, TopTracksActivity.class);
-                intent.putExtra("source", "HistoryActivity"); // Indicate source of intent
+                Intent intent = new Intent(HistoryActivity.this, Transition1Activity.class);
+                //intent.putExtra("source", "HistoryActivity"); // Indicate source of intent
                 intent.putExtra("email", userEmail); // Include other necessary extras
                 intent.putExtra("date", selectedDate);
                 startActivity(intent);
