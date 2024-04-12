@@ -33,13 +33,14 @@ public class AddFriend extends AppCompatActivity {
         }
         WrappedDatabase wrappedDatabase = new WrappedDatabase(getApplicationContext());
         List<SpotifyWrapped> yourWrapped = wrappedDatabase.getSpotifyWrapped(youremail);
-        if (yourWrapped == null) {
+        if (yourWrapped == null || yourWrapped.size() == 0) {
             Toast.makeText(this, "You do not have any existing wraps", Toast.LENGTH_SHORT).show();
             return;
         }
         List<SpotifyWrapped> friendWrapped = wrappedDatabase.getSpotifyWrapped(friendEmail);
-        if (friendWrapped == null) {
+        if (friendWrapped == null || friendWrapped.size() == 0) {
             Toast.makeText(this, "Your friend does not have any existing wraps", Toast.LENGTH_SHORT).show();
+            return;
         }
         Intent intent = new Intent(this, DuoTopArtists.class);
         intent.putExtra("yourEmail", youremail);
