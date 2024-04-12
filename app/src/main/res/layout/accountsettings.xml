@@ -43,7 +43,7 @@
         android:backgroundTint="@color/material_dynamic_neutral50"
         android:ems="10"
         android:fontFamily="@font/cabin_semibold"
-        android:hint="Enter Your Email To Delete"
+        android:hint="Edit: Name | Delete: Email"
         android:inputType="text"
         android:textAlignment="center"
         android:textColor="#1ED760"
