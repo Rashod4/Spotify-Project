@@ -29,6 +29,7 @@ public class TopTracksActivity extends AppCompatActivity {
     private MediaPlayer mediaPlayer;
     private ArrayList<String> previewUrls;
     private WrappedDatabase database;
+    private SpotifyWrapped mostRecentWrapped;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +38,26 @@ public class TopTracksActivity extends AppCompatActivity {
 
         database = new WrappedDatabase(this);
         String userEmail = getIntent().getStringExtra("email");
+
         List<SpotifyWrapped> userSpotifyWrapped = database.getSpotifyWrapped(userEmail);
+
+        // Check if the intent is coming from HistoryActivity
+        if (getIntent().hasExtra("source")) {
+            String source = getIntent().getStringExtra("source");
+            if (source != null && source.equals("HistoryActivity")) {
+                // Intent is coming from HistoryActivity
+                String date = getIntent().getStringExtra("date");
+                mostRecentWrapped = findWrappedByDate(userSpotifyWrapped, date);
+            }
+        } else {
+            mostRecentWrapped = userSpotifyWrapped.get(userSpotifyWrapped.size() - 1); //latest wrapped
+        }
+
+
         // Check if there's any SpotifyWrapped data available
 
         // Get the topTracks from the most recent SpotifyWrapped object
-        SpotifyWrapped mostRecentWrapped = userSpotifyWrapped.get(userSpotifyWrapped.size() - 1); //latest wrapped
+
         List<String> topTracks = mostRecentWrapped.getTopTracks();
         List<String> previewUrls = mostRecentWrapped.getPreviewUrls();
         List<String> imageUrls = mostRecentWrapped.getImageUrls();
@@ -97,6 +113,23 @@ public class TopTracksActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        Button back = findViewById(R.id.topSongsBack);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+    }
+
+    private SpotifyWrapped findWrappedByDate(List<SpotifyWrapped> wrappedList, String date) {
+        for (SpotifyWrapped wrapped : wrappedList) {
+            if (wrapped.getDate().equals(date)) {
+                return wrapped;
+            }
+        }
+        return null;
     }
 
     private void playTrack(String previewUrl) {
@@ -135,5 +168,14 @@ public class TopTracksActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        // Stop and release MediaPlayer resources
+        if (mediaPlayer != null) {
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
+    }
 }
 

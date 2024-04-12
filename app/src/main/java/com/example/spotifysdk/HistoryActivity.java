@@ -1,9 +1,11 @@
 package com.example.spotifysdk;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -17,6 +19,7 @@ public class HistoryActivity extends AppCompatActivity {
     private Spinner historySpinner;
     private List<SpotifyWrapped> wrappedList; // List to store Spotify wraps
     private String userEmail;
+    private String selectedDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +58,8 @@ public class HistoryActivity extends AppCompatActivity {
         historySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                // Handle item selection, e.g., update UI based on selected wrapped data
-                String selectedTitle = (String) parent.getItemAtPosition(position);
-                Toast.makeText(HistoryActivity.this, "Selected wrap: " + selectedTitle, Toast.LENGTH_SHORT).show();
+                selectedDate = (String) parent.getItemAtPosition(position);
+                Toast.makeText(HistoryActivity.this, "Selected wrap: " + selectedDate, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -66,7 +68,18 @@ public class HistoryActivity extends AppCompatActivity {
             }
         });
 
-        // Additional setup or logic can be added here
+        Button button = findViewById(R.id.history_button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HistoryActivity.this, TopTracksActivity.class);
+                intent.putExtra("source", "HistoryActivity"); // Indicate source of intent
+                intent.putExtra("email", userEmail); // Include other necessary extras
+                intent.putExtra("date", selectedDate);
+                startActivity(intent);
+            }
+        });
+
     }
 
     // Method to fetch user's Spotify wraps (replace with your actual data retrieval logic)
@@ -79,5 +92,15 @@ public class HistoryActivity extends AppCompatActivity {
 
         return wraps;
     }
+
+    // Helper method to find a SpotifyWrapped object by date
+//    private SpotifyWrapped findWrappedByDate(String date) {
+//        for (SpotifyWrapped wrapped : wrappedList) {
+//            if (wrapped.getDate().equals(date)) {
+//                return wrapped;
+//            }
+//        }
+//        return null; // Return null if no match found
+//    }
 }
 
