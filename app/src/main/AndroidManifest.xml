@@ -32,7 +32,9 @@
         <activity android:name=".AddFriend" />
         <activity android:name=".HistoryActivity" />
         <activity android:name=".DuoTopArtists" />
-
+        <activity android:name=".Transition1Activity" />
+        <activity android:name=".Transition2Activity" />
+        <activity android:name=".Transition3Activity" />
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
