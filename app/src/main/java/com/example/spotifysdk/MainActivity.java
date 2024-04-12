@@ -8,10 +8,14 @@ import android.os.Bundle;
 import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import com.spotify.sdk.android.auth.AuthorizationClient;
 import com.spotify.sdk.android.auth.AuthorizationRequest;
@@ -98,6 +102,26 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, EditAccount.class);
             startActivity(intent);
             finish(); // Call this to finish the current activity
+        });
+
+        Button wrappedHistory = findViewById(R.id.history_btn);
+        wrappedHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                wrappedDatabase = new WrappedDatabase(MainActivity.this);
+                String userEmail = getIntent().getStringExtra("email");
+                List<SpotifyWrapped> userSpotifyWrapped = wrappedDatabase.getSpotifyWrapped(userEmail);
+
+                if (userSpotifyWrapped.isEmpty()) {
+                    // User does not have any previous Spotify wraps
+                    Toast.makeText(MainActivity.this, "No previous Spotify wraps found.", Toast.LENGTH_SHORT).show();
+                } else {
+                    // User has previous Spotify wraps, navigate to HistoryActivity
+                    Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
+                    intent.putExtra("email", userEmail);
+                    startActivity(intent);
+                }
+            }
         });
     }
 
@@ -315,9 +339,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void makeWrappedDatabaseEntry() {
         //making new database entry
+        // Retrieve the current date in a suitable format
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String formattedDate = currentDate.format(formatter);
         //Make approprate changes in WrappedDatabse if adding new things
         wrappedDatabase = new WrappedDatabase(this);
-        SpotifyWrapped sw = new SpotifyWrapped(trackNames, artistsNames, genreNames, previewUrls, imageUrls, artistImageUrls, albumNames);
+        SpotifyWrapped sw = new SpotifyWrapped(trackNames, artistsNames, genreNames, previewUrls, imageUrls, artistImageUrls, albumNames, formattedDate);
         String email = userEmail;
         wrappedDatabase.insertSpotifyWrapped(sw, email);
     }
