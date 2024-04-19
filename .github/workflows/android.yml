@@ -1,4 +1,4 @@
-3name: Android CI
+name: Android CI
 
 on:
   push:
@@ -23,4 +23,4 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Build with Gradle
-      run: ./gradlew build -x :app:lintAnalyzeDebug -x :app:lintDebug
+      run: ./gradlew build -x :app:lintAnalyzeDebug -x :app:lintDebug -x :app:generateDebugLintReportModel
