@@ -20,6 +20,7 @@ public class EditAccount extends AppCompatActivity {
         EditText full_name = (EditText) findViewById(R.id.full_Name);
         Button edit_button = (Button) findViewById(R.id.edit_login_info);
         Button delete_button = (Button) findViewById(R.id.delete);
+        Button logout_button = (Button) findViewById(R.id.logout);
         edit_button.setOnClickListener((v) -> {
             saveChanges(full_name.getText().toString(), email_change.getText().toString(), password_change.getText().toString());
         });
@@ -31,6 +32,11 @@ public class EditAccount extends AppCompatActivity {
         backButton.setOnClickListener(v -> {
             // Send the user back to MainActivity
             Intent intent = new Intent(EditAccount.this, MainActivity.class);
+            startActivity(intent);
+            finish(); // Call this to finish the current activity
+        });
+        logout_button.setOnClickListener(v -> {
+            Intent intent = new Intent(EditAccount.this, LoginActivity.class);
             startActivity(intent);
             finish(); // Call this to finish the current activity
         });
