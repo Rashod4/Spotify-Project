@@ -69,22 +69,17 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialize the views
         tokenTextView = (TextView) findViewById(R.id.token_text_view);
-        codeTextView = (TextView) findViewById(R.id.code_text_view);
-        profileTextView = (TextView) findViewById(R.id.response_text_view);
+        //profileTextView = (TextView) findViewById(R.id.response_text_view);
 
 
         // Initialize the buttons
         //Button tokenBtn = (Button) findViewById(R.id.token_btn);
-        Button codeBtn = (Button) findViewById(R.id.code_btn);
         //Button profileBtn = (Button) findViewById(R.id.profile_btn);
         Button createWrappedBtn = findViewById(R.id.create_wrapped_btn);
         Button createDuoWrappedBtn = findViewById(R.id.create_duo_wrapped_btn);
         ImageView imageViewGear = findViewById(R.id.imageViewGear);
         // Set the click listeners for the buttons
         getToken();
-        codeBtn.setOnClickListener((v) -> {
-            getCode();
-        });
 
         createWrappedBtn.setOnClickListener((v) -> {
             generateSpotifyWrapped();
@@ -142,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
         final AuthorizationRequest request = getAuthenticationRequest(AuthorizationResponse.Type.CODE);
         AuthorizationClient.openLoginActivity(MainActivity.this, AUTH_CODE_REQUEST_CODE, request);
     }
+
 
 
     /**

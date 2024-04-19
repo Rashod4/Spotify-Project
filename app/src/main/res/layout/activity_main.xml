@@ -40,34 +40,6 @@
             android:textSize="25sp"
             tools:text="Token:" />
 
-        <TextView
-            android:id="@+id/code_text_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:fontFamily="@font/luckiest_guy"
-            android:textColor="@color/white"
-            android:textSize="25sp"
-            tools:text="Code:" />
-
-        <Button
-            android:id="@+id/code_btn"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="8dp"
-            android:background="@drawable/button_rectangle"
-            android:text="Request Code"
-            android:textColor="@color/white" />
-
-        <TextView
-            android:id="@+id/response_text_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textSize="10sp"
-            tools:text="Line 1\nLine 2\nLine 3" />
-
         <LinearLayout
             android:id="@+id/top_tracks_layout"
             android:layout_width="match_parent"
@@ -95,14 +67,6 @@
                 android:background="@drawable/button_wrapped"
                 android:text="Duo Wrapped!"
                 android:textColor="@color/white" />
-            <ImageView
-                android:id="@+id/imageViewGear"
-                android:layout_width="61dp"
-                android:layout_height="107dp"
-                android:baselineAligned="false"
-                android:clickable="true"
-                android:focusable="true"
-                android:src="@drawable/settingimage" />
 
 
         </LinearLayout>
@@ -130,6 +94,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageViewGear"
+            android:layout_width="61dp"
+            android:layout_height="107dp"
+            android:baselineAligned="false"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/settingimage" />
 
     </LinearLayout>
 
