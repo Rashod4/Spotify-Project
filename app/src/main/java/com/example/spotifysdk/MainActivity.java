@@ -69,26 +69,17 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialize the views
         tokenTextView = (TextView) findViewById(R.id.token_text_view);
-        codeTextView = (TextView) findViewById(R.id.code_text_view);
-        profileTextView = (TextView) findViewById(R.id.response_text_view);
+        //profileTextView = (TextView) findViewById(R.id.response_text_view);
 
 
         // Initialize the buttons
-        Button tokenBtn = (Button) findViewById(R.id.token_btn);
-        Button codeBtn = (Button) findViewById(R.id.code_btn);
+        //Button tokenBtn = (Button) findViewById(R.id.token_btn);
         //Button profileBtn = (Button) findViewById(R.id.profile_btn);
         Button createWrappedBtn = findViewById(R.id.create_wrapped_btn);
         Button createDuoWrappedBtn = findViewById(R.id.create_duo_wrapped_btn);
         ImageView imageViewGear = findViewById(R.id.imageViewGear);
         // Set the click listeners for the buttons
-
-        tokenBtn.setOnClickListener((v) -> {
-            getToken();
-        });
-
-        codeBtn.setOnClickListener((v) -> {
-            getCode();
-        });
+        getToken();
 
         createWrappedBtn.setOnClickListener((v) -> {
             generateSpotifyWrapped();
@@ -148,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
     /**
      * When the app leaves this activity to momentarily get a token/code, this function
      * fetches the result of that external activity to get the response from Spotify
@@ -160,11 +152,11 @@ public class MainActivity extends AppCompatActivity {
         // Check which request code is present (if any)
         if (AUTH_TOKEN_REQUEST_CODE == requestCode) {
             mAccessToken = response.getAccessToken();
-            setTextAsync(mAccessToken, tokenTextView);
+            setTextAsync("Account has been synced with Spotify!", tokenTextView);
 
         } else if (AUTH_CODE_REQUEST_CODE == requestCode) {
             mAccessCode = response.getCode();
-            setTextAsync(mAccessCode, codeTextView);
+            setTextAsync("Code has been retrieved!", codeTextView);
         }
     }
 

@@ -64,10 +64,19 @@ public class TopAlbumsActivity extends AppCompatActivity{
 //        }
 
         Button back = findViewById(R.id.topAlbumBack);
+        Button backToHome = findViewById(R.id.topAlbumNext);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+        backToHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TopAlbumsActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish(); // Call this to finish the current activity
             }
         });
     }
