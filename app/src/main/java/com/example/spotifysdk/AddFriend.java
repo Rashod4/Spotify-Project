@@ -2,6 +2,7 @@ package com.example.spotifysdk;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -20,6 +21,14 @@ public class AddFriend extends AppCompatActivity {
         Button send_btn = (Button) findViewById(R.id.send_button);
         send_btn.setOnClickListener((v) -> {
             validate(email_text.getText().toString(), friend_email.getText().toString());
+        });
+
+        Button back = findViewById(R.id.back_btn);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
         });
     }
     public void validate(String youremail, String friendEmail) {

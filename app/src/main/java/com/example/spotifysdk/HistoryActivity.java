@@ -80,6 +80,14 @@ public class HistoryActivity extends AppCompatActivity {
             }
         });
 
+        Button back = findViewById(R.id.back_btn);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
     }
 
     // Method to fetch user's Spotify wraps (replace with your actual data retrieval logic)
