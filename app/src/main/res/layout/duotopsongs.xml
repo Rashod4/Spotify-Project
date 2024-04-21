@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/duotopsongsbackground"
+    android:background="@drawable/new_duosong"
     tools:layout_editor_absoluteX="60dp"
     tools:layout_editor_absoluteY="271dp">
 
@@ -99,7 +99,7 @@
         android:fontFamily="@font/alegreya_sc_black_italic"
         android:gravity="center_vertical|end"
         android:text="TextView"
-        android:textColor="@color/yellow"
+        android:textColor="@color/blue_dark"
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -118,7 +118,7 @@
         android:fontFamily="@font/alegreya_sc_black_italic"
         android:gravity="center_vertical|end"
         android:text="TextView"
-        android:textColor="@color/yellow"
+        android:textColor="@color/blue_dark"
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/user2topsong1"
@@ -135,7 +135,7 @@
         android:fontFamily="@font/alegreya_sc_black_italic"
         android:gravity="center_vertical|end"
         android:text="TextView"
-        android:textColor="@color/yellow"
+        android:textColor="@color/blue_dark"
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/user2topsong2"
@@ -152,7 +152,7 @@
         android:fontFamily="@font/alegreya_sc_black_italic"
         android:gravity="center_vertical|end"
         android:text="TextView"
-        android:textColor="@color/yellow"
+        android:textColor="@color/blue_dark"
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/user2topsong3"
@@ -167,13 +167,39 @@
         android:fontFamily="@font/alegreya_sc_black_italic"
         android:gravity="center_vertical|end"
         android:text="TextView"
-        android:textColor="@color/yellow"
+        android:textColor="@color/blue_dark"
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/user2topsong4"
         app:layout_constraintTop_toBottomOf="@+id/user2topsong4"
         app:layout_constraintVertical_bias="0.627" />
+
+    <ImageView
+        android:id="@+id/userTopSongImageView"
+        android:layout_width="360dp"
+        android:layout_height="340dp"
+        android:alpha="0.2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.148"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <ImageView
+        android:id="@+id/friendTopSongImageView"
+        android:layout_width="360dp"
+        android:layout_height="340dp"
+        android:alpha="0.2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/userTopSongImageView"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <Button
         android:id="@+id/duoSongNext"
