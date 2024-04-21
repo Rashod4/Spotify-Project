@@ -72,6 +72,20 @@ public class DuoTopArtists extends AppCompatActivity {
             // For example, display a message or log an error
             Log.e("DuoTopArtistsActivity", "topArtists ArrayList is null");
         }
+        //imageViews
+        ImageView yourView = findViewById(R.id.userTopArtistImageView);
+        String yourUrl = yourArtistImageUrls.get(0);
+        Glide.with(this)
+                .load(yourUrl)
+                .into(yourView);
+
+        ImageView friendView = findViewById(R.id.friendTopArtistImageView);
+        String friendUrl = friendArtistImageUrls.get(0);
+        Glide.with(this)
+                .load(friendUrl)
+                .into(friendView);
+
+
         Button next = findViewById(R.id.duoArtistNext);
         next.setOnClickListener(new View.OnClickListener() {
             @Override

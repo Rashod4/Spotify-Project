@@ -14,6 +14,8 @@ import java.util.List;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 public class DuoTopSongs extends AppCompatActivity {
@@ -37,9 +39,11 @@ public class DuoTopSongs extends AppCompatActivity {
             // Get the top songs for both users
             SpotifyWrapped yourMostRecentWrapped = yourWrappedList.get(yourWrappedList.size() - 1); // Latest wrapped
             List<String> yourTopSongs = yourMostRecentWrapped.getTopTracks();
+            List<String> yourSongImageUrls = yourMostRecentWrapped.getImageUrls();
 
             SpotifyWrapped friendMostRecentWrapped = friendWrappedList.get(friendWrappedList.size() - 1); // Latest wrapped
             List<String> friendTopSongs = friendMostRecentWrapped.getTopTracks();
+            List<String> friendSongImageUrls = friendMostRecentWrapped.getImageUrls();
 
             // Display top 5 songs for both users
             for (int i = 0; i < 5; i++) {
