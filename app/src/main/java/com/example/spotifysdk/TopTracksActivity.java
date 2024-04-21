@@ -21,7 +21,7 @@ import java.util.List;
 
 public class TopTracksActivity extends AppCompatActivity {
     private int currentTrackIndex = 0;
-    private MediaPlayer mediaPlayer;
+    private static MediaPlayer mediaPlayer;
     private ArrayList<String> previewUrls;
     private WrappedDatabase database;
     private SpotifyWrapped mostRecentWrapped;
@@ -161,6 +161,22 @@ public class TopTracksActivity extends AppCompatActivity {
         } catch (IllegalStateException e) {
             Log.e("MediaPlayer", "Illegal state while preparing or starting playback: " + e.getMessage());
             mediaPlayer.reset(); // Reset the MediaPlayer if an IllegalStateException occurs
+        }
+    }
+
+    public static void stopPlayback() {
+        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+            mediaPlayer.stop();
+            mediaPlayer.reset();
+        }
+    }
+
+    protected void onDestroy() {
+        super.onDestroy();
+        // Release MediaPlayer resources when activity is destroyed
+        if (mediaPlayer != null) {
+            mediaPlayer.release();
+            mediaPlayer = null;
         }
     }
 
