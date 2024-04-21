@@ -44,7 +44,7 @@ public class AddFriend extends AppCompatActivity {
         }
         Intent intent = new Intent(this, DuoTopArtists.class);
         intent.putExtra("yourEmail", youremail);
-        intent.putExtra("friendEmail", youremail);
+        intent.putExtra("friendEmail", friendEmail);
         startActivity(intent);
         finish(); // Call this to finish the current activity
     }
