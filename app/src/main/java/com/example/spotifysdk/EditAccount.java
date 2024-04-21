@@ -30,9 +30,6 @@ public class EditAccount extends AppCompatActivity {
 
         Button backButton = findViewById(R.id.settings_back);
         backButton.setOnClickListener(v -> {
-            // Send the user back to MainActivity
-            Intent intent = new Intent(EditAccount.this, MainActivity.class);
-            startActivity(intent);
             finish(); // Call this to finish the current activity
         });
         logout_button.setOnClickListener(v -> {
