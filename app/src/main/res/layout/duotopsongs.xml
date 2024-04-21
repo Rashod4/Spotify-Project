@@ -21,10 +21,10 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.845"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.093" />
+        app:layout_constraintVertical_bias="0.106" />
 
     <TextView
         android:id="@+id/user1topsong2"
@@ -130,6 +130,7 @@
         android:id="@+id/user2topsong3"
         android:layout_width="340dp"
         android:layout_height="45dp"
+        android:layout_marginTop="24dp"
         android:ellipsize="end"
         android:fontFamily="@font/alegreya_sc_black_italic"
         android:gravity="center_vertical|end"
@@ -140,7 +141,7 @@
         app:layout_constraintEnd_toEndOf="@+id/user2topsong2"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/user2topsong2"
-        tools:layout_editor_absoluteY="529dp" />
+        app:layout_constraintTop_toBottomOf="@+id/user2topsong2" />
 
     <TextView
         android:id="@+id/user2topsong4"
@@ -155,6 +156,7 @@
         android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/user2topsong3"
+        app:layout_constraintStart_toStartOf="@+id/user2topsong3"
         app:layout_constraintTop_toBottomOf="@+id/user2topsong3" />
 
     <TextView
@@ -172,4 +174,30 @@
         app:layout_constraintEnd_toEndOf="@+id/user2topsong4"
         app:layout_constraintTop_toBottomOf="@+id/user2topsong4"
         app:layout_constraintVertical_bias="0.627" />
+
+    <Button
+        android:id="@+id/duoSongNext"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="19dp"
+        android:layout_marginBottom="668dp"
+        android:background="@drawable/button_round"
+        android:text="NEXT"
+        android:ellipsize="end"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.989"
+        app:layout_constraintStart_toEndOf="@+id/duoSongBack" />
+
+    <Button
+        android:id="@+id/duoSongBack"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="668dp"
+        android:background="@drawable/button_round"
+        android:text="Back"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

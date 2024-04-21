@@ -183,4 +183,17 @@
         app:layout_constraintStart_toStartOf="@+id/user2TA4"
         app:layout_constraintTop_toBottomOf="@+id/user2TA4"
         app:layout_constraintVertical_bias="0.609" />
+
+    <Button
+        android:id="@+id/duoArtistNext"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="19dp"
+        android:layout_marginBottom="668dp"
+        android:background="@drawable/button_round"
+        android:text="NEXT"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.989"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
