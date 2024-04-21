@@ -71,7 +71,7 @@
         android:layout_marginStart="19dp"
         android:layout_marginBottom="668dp"
         android:background="@drawable/button_round"
-        android:text="HOME"
+        android:text="NEXT"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

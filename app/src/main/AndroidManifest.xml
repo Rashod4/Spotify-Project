@@ -35,6 +35,7 @@
         <activity android:name=".Transition1Activity" />
         <activity android:name=".Transition2Activity" />
         <activity android:name=".Transition3Activity" />
+        <activity android:name=".LastPageActivity" />
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
