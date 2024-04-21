@@ -61,10 +61,23 @@ public class DuoTopSongs extends AppCompatActivity {
                     friendTextView.setText(friendTopSongs.get(i));
                 }
             }
+            //imageViews
+            ImageView yourView = findViewById(R.id.userTopSongImageView);
+            String yourUrl = yourSongImageUrls.get(0);
+            Glide.with(this)
+                    .load(yourUrl)
+                    .into(yourView);
+
+            ImageView friendView = findViewById(R.id.friendTopSongImageView);
+            String friendUrl = friendSongImageUrls.get(0);
+            Glide.with(this)
+                    .load(friendUrl)
+                    .into(friendView);
         } else {
             // Handle the case where top songs data is not available
             Toast.makeText(this, "Top songs data is not available.", Toast.LENGTH_SHORT).show();
         }
+
         Button next = findViewById(R.id.duoSongNext);
         next.setOnClickListener(new View.OnClickListener() {
             @Override
