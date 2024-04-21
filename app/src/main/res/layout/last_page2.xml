@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/lastpagebackground">
+    android:background="@drawable/duo_last">
 
     <Button
-        android:id="@+id/last_Page_to_home"
+        android:id="@+id/last_Page_to_home2"
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:background="@drawable/button_round"

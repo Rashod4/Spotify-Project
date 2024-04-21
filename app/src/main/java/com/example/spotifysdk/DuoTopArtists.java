@@ -1,10 +1,12 @@
 package com.example.spotifysdk;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -70,6 +72,30 @@ public class DuoTopArtists extends AppCompatActivity {
             // For example, display a message or log an error
             Log.e("DuoTopArtistsActivity", "topArtists ArrayList is null");
         }
+        //imageViews
+        ImageView yourView = findViewById(R.id.userTopArtistImageView);
+        String yourUrl = yourArtistImageUrls.get(0);
+        Glide.with(this)
+                .load(yourUrl)
+                .into(yourView);
+
+        ImageView friendView = findViewById(R.id.friendTopArtistImageView);
+        String friendUrl = friendArtistImageUrls.get(0);
+        Glide.with(this)
+                .load(friendUrl)
+                .into(friendView);
+
+
+        Button next = findViewById(R.id.duoArtistNext);
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DuoTopArtists.this, DuoTopSongs.class);
+                intent.putExtra("yourEmail", userEmail);
+                intent.putExtra("friendEmail", friendEmail);
+                startActivity(intent);
+            }
+        });
     }
 
     // Method to fetch user's Spotify wraps (replace with your actual data retrieval logic)
